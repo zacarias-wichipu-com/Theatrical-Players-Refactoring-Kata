@@ -22,7 +22,6 @@ class StatementPrinter
 
         foreach ($invoice->performances as $performance) {
             $play = $plays[$performance->playId];
-            $thisAmount = 0;
 
             switch ($play->type) {
                 case 'tragedy':
@@ -60,6 +59,7 @@ class StatementPrinter
 
         $result .= "Amount owed is {$format ->formatCurrency($totalAmount / 100, 'USD')}\n";
         $result .= "You earned {$volumeCredits} credits";
+
         return $result;
     }
 }
