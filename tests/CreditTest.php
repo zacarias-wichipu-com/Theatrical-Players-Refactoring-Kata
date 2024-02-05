@@ -21,4 +21,16 @@ class CreditTest extends TestCase
         $creditToAdd = new Credit(credit: 3);
         $this->assertEquals(expected: new Credit(13), actual: $credit->add($creditToAdd));
     }
+
+    /**
+     * @test
+     * Be Able Representing By A String
+     * be_able_representing_by_a_string
+     * @group credit
+     */
+    public function itShouldBeAbleRepresentingByAString(): void
+    {
+        $credit = new Credit(credit: 10);
+        $this->assertEquals(expected: '10', actual: (string)($credit));
+    }
 }

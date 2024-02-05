@@ -63,7 +63,7 @@ class StatementPrinter
         }
 
         $result .= "Amount owed is {$format ->formatCurrency($totalAmount / 100, 'USD')}\n";
-        $result .= "You earned {$volumeCredits} credits";
+        $result .= "You earned {$credits} credits";
 
         return $result;
     }

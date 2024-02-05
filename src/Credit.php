@@ -14,4 +14,9 @@ final readonly class Credit
     {
         return new Credit(credit: $this->credit + $creditToAdd->credit);
     }
+
+    public function __toString(): string
+    {
+        return (string)($this->credit);
+    }
 }
