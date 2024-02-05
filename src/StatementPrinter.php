@@ -25,10 +25,8 @@ class StatementPrinter
             $creditByAudience = new Credit(credit: max($performance->audience - 30, 0));
             $credit = $credit->add($creditByAudience);
             // add extra credit for every ten comedy attendees
-            if ($play->type === 'comedy') {
-                $creditByType = new Credit(credit: (int)floor($performance->audience / 5));
-                $credit = $credit->add($creditByType);
-            }
+            $performanceCredit = $this->performanceCredit($performance, $play);
+            $credit = $credit->add($performanceCredit);
             // print line for this order
             $result .= "  {$play->name}: {$format->formatCurrency($performanceAmount->value() / 100, 'USD')} ";
             $result .= "({$performance->audience} seats)\n";
@@ -96,5 +94,12 @@ class StatementPrinter
                 throw new Error("Unknown type: {$play->type}");
         }
         return $performanceAmount;
+    }
+
+    private function performanceCredit(Performance $performance, Play $play): Credit
+    {
+        return $play->type === 'comedy'
+            ? new Credit(credit: (int)floor($performance->audience / 5))
+            : new Credit(credit: 0);
     }
 }
