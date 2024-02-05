@@ -15,7 +15,7 @@ class StatementPrinter
     public function print(Invoice $invoice, array $plays): string
     {
         $totalAmount = 0;
-        $credits = new Credit(credit: 0);
+        $credit = new Credit(credit: 0);
 
         $result = "Statement for {$invoice->customer}\n";
         $format = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
@@ -43,13 +43,13 @@ class StatementPrinter
                     throw new Error("Unknown type: {$play->type}");
             }
 
-            // add volume credits
-            $performanceCreditsByAudience = max($performance->audience - 30, 0);
-            $credits = $credits->add(new Credit(credit: $performanceCreditsByAudience));
+            // add volume credit
+            $performanceCreditByAudience = max($performance->audience - 30, 0);
+            $credit = $credit->add(new Credit(credit: $performanceCreditByAudience));
             // add extra credit for every ten comedy attendees
             if ($play->type === 'comedy') {
-                $performanceCreditsByType = (int)floor($performance->audience / 5);
-                $credits = $credits->add(new Credit(credit: $performanceCreditsByType));
+                $performanceCreditByType = (int)floor($performance->audience / 5);
+                $credit = $credit->add(new Credit(credit: $performanceCreditByType));
             }
 
             // print line for this order
@@ -60,7 +60,7 @@ class StatementPrinter
         }
 
         $result .= "Amount owed is {$format ->formatCurrency($totalAmount / 100, 'USD')}\n";
-        $result .= "You earned {$credits} credits";
+        $result .= "You earned {$credit} credits";
 
         return $result;
     }
