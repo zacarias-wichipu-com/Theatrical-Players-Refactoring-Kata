@@ -10,6 +10,11 @@ final readonly class Amount
     {
     }
 
+    public function value(): int
+    {
+        return $this->amount;
+    }
+
     public function add(Amount $amountToAdd): Amount
     {
         return new Amount(amount: $this->amount + $amountToAdd->amount);
