@@ -31,10 +31,13 @@ class StatementPrinter
                 case 'comedy':
                     $performanceAmount = new Amount(amount: 30000);
                     $performanceAmount = $performanceAmount->add(
+                        amountToAdd: $this->comedyPerformanceAudienceAmount(
+                            performance: $performance
+                        )
+                    );
+                    $performanceAmount = $performanceAmount->add(
                         amountToAdd: $this->comedyPerformanceAudienceExtraAmount(performance: $performance)
                     );
-                    $audiencePerformanceAmount = new Amount(amount: 300 * $performance->audience);
-                    $performanceAmount = $performanceAmount->add(amountToAdd: $audiencePerformanceAmount);
                     break;
                 default:
                     throw new Error("Unknown type: {$play->type}");
@@ -62,6 +65,11 @@ class StatementPrinter
         return $performance->audience > 30
             ? new Amount(amount: 1000 * ($performance->audience - 30))
             : new Amount(0);
+    }
+
+    private function comedyPerformanceAudienceAmount(Performance $performance): Amount
+    {
+        return new Amount(amount: 300 * $performance->audience);
     }
 
     private function comedyPerformanceAudienceExtraAmount(Performance $performance): Amount
