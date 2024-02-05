@@ -15,6 +15,7 @@ class StatementPrinter
     public function print(Invoice $invoice, array $plays): string
     {
         $totalAmount = 0;
+        $amount = new Amount(amount: $totalAmount);
         $credit = new Credit(credit: 0);
 
         $result = "Statement for {$invoice->customer}\n";
@@ -57,6 +58,7 @@ class StatementPrinter
             $result .= "({$performance->audience} seats)\n";
 
             $totalAmount += $thisAmount;
+            $amount = $amount->add(amountToAdd: new Amount(amount: $thisAmount));
         }
 
         $result .= "Amount owed is {$format ->formatCurrency($totalAmount / 100, 'USD')}\n";
