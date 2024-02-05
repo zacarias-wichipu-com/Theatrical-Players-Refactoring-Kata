@@ -25,19 +25,14 @@ class StatementPrinter
                 case 'tragedy':
                     $performanceAmount = new Amount(amount: 40000);
                     $performanceAmount = $performanceAmount->add(
-                        amountToAdd: $this->tragedyPerformanceAudienceExtraAmount(
-                            performance: $performance
-                        )
+                        amountToAdd: $this->tragedyPerformanceAudienceExtraAmount(performance: $performance)
                     );
                     break;
                 case 'comedy':
                     $performanceAmount = new Amount(amount: 30000);
-                    if ($performance->audience > 20) {
-                        $extraAudiencePerformanceAmount = new Amount(
-                            amount: 10000 + 500 * ($performance->audience - 20)
-                        );
-                        $performanceAmount = $performanceAmount->add(amountToAdd: $extraAudiencePerformanceAmount);
-                    }
+                    $performanceAmount = $performanceAmount->add(
+                        amountToAdd: $this->comedyPerformanceAudienceExtraAmount(performance: $performance)
+                    );
                     $audiencePerformanceAmount = new Amount(amount: 300 * $performance->audience);
                     $performanceAmount = $performanceAmount->add(amountToAdd: $audiencePerformanceAmount);
                     break;
@@ -66,6 +61,13 @@ class StatementPrinter
     {
         return $performance->audience > 30
             ? new Amount(amount: 1000 * ($performance->audience - 30))
+            : new Amount(0);
+    }
+
+    private function comedyPerformanceAudienceExtraAmount(Performance $performance): Amount
+    {
+        return $performance->audience > 20
+            ? new Amount(amount: 10000 + 500 * ($performance->audience - 20))
             : new Amount(0);
     }
 }
