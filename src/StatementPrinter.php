@@ -15,50 +15,21 @@ class StatementPrinter
     public function print(Invoice $invoice, array $plays): string
     {
         $invoiceAmount = new Amount(amount: 0);
-        $credit = new Credit(credit: 0);
+        $invoiceCredit = new Credit(credit: 0);
         $result = "Statement for {$invoice->customer}\n";
         $format = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
         foreach ($invoice->performances as $performance) {
             $play = $plays[$performance->playId];
-            $performanceAmount = $this->performanceAmount($performance, $play);
-            // add volume credit
-            $creditByAudience = new Credit(credit: max($performance->audience - 30, 0));
-            $credit = $credit->add($creditByAudience);
-            // add extra credit for every ten comedy attendees
-            $performanceCredit = $this->performanceCredit($performance, $play);
-            $credit = $credit->add($performanceCredit);
-            // print line for this order
+            $performanceAmount = $this->performanceAmount(performance: $performance, play: $play);
+            $performanceCredit = $this->performanceCredit(performance: $performance, play: $play);
+            $invoiceAmount = $invoiceAmount->add(amountToAdd: $performanceAmount);
+            $invoiceCredit = $invoiceCredit->add(creditToAdd: $performanceCredit);
             $result .= "  {$play->name}: {$format->formatCurrency($performanceAmount->value() / 100, 'USD')} ";
             $result .= "({$performance->audience} seats)\n";
-            $invoiceAmount = $invoiceAmount->add(amountToAdd: $performanceAmount);
         }
         $result .= "Amount owed is {$format ->formatCurrency($invoiceAmount->value() / 100, 'USD')}\n";
-        $result .= "You earned {$credit} credits";
+        $result .= "You earned {$invoiceCredit} credits";
         return $result;
-    }
-
-    private function tragedyPerformanceAmount(Performance $performance): Amount
-    {
-        return new Amount(0);
-    }
-
-    private function tragedyPerformanceAudienceAmount(Performance $performance): Amount
-    {
-        return $performance->audience > 30
-            ? new Amount(amount: 1000 * ($performance->audience - 30))
-            : new Amount(0);
-    }
-
-    private function comedyPerformanceAmount(Performance $performance): Amount
-    {
-        return new Amount(amount: 300 * $performance->audience);
-    }
-
-    private function comedyPerformanceAudienceAmount(Performance $performance): Amount
-    {
-        return $performance->audience > 20
-            ? new Amount(amount: 10000 + 500 * ($performance->audience - 20))
-            : new Amount(0);
     }
 
     private function performanceAmount(Performance $performance, Play $play): Amount
@@ -96,7 +67,38 @@ class StatementPrinter
         return $performanceAmount;
     }
 
+    private function tragedyPerformanceAmount(Performance $performance): Amount
+    {
+        return new Amount(0);
+    }
+
+    private function tragedyPerformanceAudienceAmount(Performance $performance): Amount
+    {
+        return $performance->audience > 30
+            ? new Amount(amount: 1000 * ($performance->audience - 30))
+            : new Amount(0);
+    }
+
+    private function comedyPerformanceAmount(Performance $performance): Amount
+    {
+        return new Amount(amount: 300 * $performance->audience);
+    }
+
+    private function comedyPerformanceAudienceAmount(Performance $performance): Amount
+    {
+        return $performance->audience > 20
+            ? new Amount(amount: 10000 + 500 * ($performance->audience - 20))
+            : new Amount(0);
+    }
+
     private function performanceCredit(Performance $performance, Play $play): Credit
+    {
+        $performanceCredit = new Credit(credit: max($performance->audience - 30, 0));
+        $creditByType = $this->performanceCreditByType($performance, $play);
+        return $performanceCredit->add($creditByType);
+    }
+
+    private function performanceCreditByType(Performance $performance, Play $play): Credit
     {
         return $play->type === 'comedy'
             ? new Credit(credit: (int)floor($performance->audience / 5))
