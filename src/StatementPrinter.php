@@ -74,14 +74,14 @@ class StatementPrinter
             }
 
             // print line for this order
-            $result .= "  {$play->name}: {$format->formatCurrency($thisAmount / 100, 'USD')} ";
+            $result .= "  {$play->name}: {$format->formatCurrency($amountByPerformance->value() / 100, 'USD')} ";
             $result .= "({$performance->audience} seats)\n";
 
             $totalAmount += $thisAmount;
-            $amount = $amount->add(amountToAdd: new Amount(amount: $thisAmount));
+            $amount = $amount->add(amountToAdd: $amountByPerformance);
         }
 
-        $result .= "Amount owed is {$format ->formatCurrency($totalAmount / 100, 'USD')}\n";
+        $result .= "Amount owed is {$format ->formatCurrency($amount->value() / 100, 'USD')}\n";
         $result .= "You earned {$credit} credits";
 
         return $result;
