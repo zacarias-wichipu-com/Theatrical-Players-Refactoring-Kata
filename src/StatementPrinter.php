@@ -16,6 +16,7 @@ class StatementPrinter
     {
         $totalAmount = 0;
         $volumeCredits = 0;
+        $credits = new Credits(credits: $volumeCredits);
 
         $result = "Statement for {$invoice->customer}\n";
         $format = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
@@ -44,10 +45,14 @@ class StatementPrinter
             }
 
             // add volume credits
-            $volumeCredits += max($performance->audience - 30, 0);
+            $performanceCreditsByAudience = max($performance->audience - 30, 0);
+            $volumeCredits += $performanceCreditsByAudience;
+            $credits = $credits->add(new Credits(credits: $performanceCreditsByAudience));
             // add extra credit for every ten comedy attendees
             if ($play->type === 'comedy') {
-                $volumeCredits += floor($performance->audience / 5);
+                $performanceCreditsByType = (int)floor($performance->audience / 5);
+                $volumeCredits += $performanceCreditsByType;
+                $credits = $credits->add(new Credits(credits: $performanceCreditsByType));
             }
 
             // print line for this order
