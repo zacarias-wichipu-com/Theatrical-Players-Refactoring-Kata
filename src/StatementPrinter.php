@@ -14,8 +14,7 @@ class StatementPrinter
      */
     public function print(Invoice $invoice, array $plays): string
     {
-        $totalAmount = 0;
-        $amount = new Amount(amount: $totalAmount);
+        $totalAmount = new Amount(amount: 0);
         $credit = new Credit(credit: 0);
 
         $result = "Statement for {$invoice->customer}\n";
@@ -26,62 +25,51 @@ class StatementPrinter
 
             switch ($play->type) {
                 case 'tragedy':
-                    $thisAmount = 40000;
-                    $amountByPerformance = new Amount(amount: $thisAmount);
+                    $performanceAmount = new Amount(amount: 40000);
                     if ($performance->audience > 30) {
-                        $performanceAmountByAudience = 1000 * ($performance->audience - 30);
-                        $thisAmount += $performanceAmountByAudience;
-                        $amountByPerformance = $amountByPerformance->add(
+                        $performanceAmount = $performanceAmount->add(
                             amountToAdd: new Amount(
-                                amount: $performanceAmountByAudience
+                                amount: 1000 * ($performance->audience - 30)
                             )
                         );
                     }
                     break;
-
                 case 'comedy':
-                    $thisAmount = 30000;
-                    $amountByPerformance = new Amount(amount: $thisAmount);
+                    $performanceAmount = new Amount(amount: 30000);
                     if ($performance->audience > 20) {
-                        $performanceAmountByAudience = 10000 + 500 * ($performance->audience - 20);
-                        $thisAmount += $performanceAmountByAudience;
-                        $amountByPerformance = $amountByPerformance->add(
+                        $performanceAmount = $performanceAmount->add(
                             amountToAdd: new Amount(
-                                amount: $performanceAmountByAudience
+                                amount: 10000 + 500 * ($performance->audience - 20)
                             )
                         );
                     }
-                    $performanceAmountByAudience = 300 * $performance->audience;
-                    $thisAmount += $performanceAmountByAudience;
-                    $amountByPerformance = $amountByPerformance->add(
+                    $performanceAmount = $performanceAmount->add(
                         amountToAdd: new Amount(
-                            amount: $performanceAmountByAudience
+                            amount: 300 * $performance->audience
                         )
                     );
                     break;
-
                 default:
                     throw new Error("Unknown type: {$play->type}");
             }
 
             // add volume credit
-            $performanceCreditByAudience = max($performance->audience - 30, 0);
-            $credit = $credit->add(new Credit(credit: $performanceCreditByAudience));
+            $creditByAudience = max($performance->audience - 30, 0);
+            $credit = $credit->add(new Credit(credit: $creditByAudience));
             // add extra credit for every ten comedy attendees
             if ($play->type === 'comedy') {
-                $performanceCreditByType = (int)floor($performance->audience / 5);
-                $credit = $credit->add(new Credit(credit: $performanceCreditByType));
+                $creditByType = (int)floor($performance->audience / 5);
+                $credit = $credit->add(new Credit(credit: $creditByType));
             }
 
             // print line for this order
-            $result .= "  {$play->name}: {$format->formatCurrency($amountByPerformance->value() / 100, 'USD')} ";
+            $result .= "  {$play->name}: {$format->formatCurrency($performanceAmount->value() / 100, 'USD')} ";
             $result .= "({$performance->audience} seats)\n";
 
-            $totalAmount += $thisAmount;
-            $amount = $amount->add(amountToAdd: $amountByPerformance);
+            $totalAmount = $totalAmount->add(amountToAdd: $performanceAmount);
         }
 
-        $result .= "Amount owed is {$format ->formatCurrency($amount->value() / 100, 'USD')}\n";
+        $result .= "Amount owed is {$format ->formatCurrency($totalAmount->value() / 100, 'USD')}\n";
         $result .= "You earned {$credit} credits";
 
         return $result;
