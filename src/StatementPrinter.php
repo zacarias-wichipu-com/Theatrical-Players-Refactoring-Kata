@@ -24,10 +24,11 @@ class StatementPrinter
             switch ($play->type) {
                 case 'tragedy':
                     $performanceAmount = new Amount(amount: 40000);
-                    if ($performance->audience > 30) {
-                        $extraAudiencePerformanceAmount = new Amount(amount: 1000 * ($performance->audience - 30));
-                        $performanceAmount = $performanceAmount->add(amountToAdd: $extraAudiencePerformanceAmount);
-                    }
+                    $performanceAmount = $performanceAmount->add(
+                        amountToAdd: $this->tragedyPerformanceAudienceExtraAmount(
+                            performance: $performance
+                        )
+                    );
                     break;
                 case 'comedy':
                     $performanceAmount = new Amount(amount: 30000);
@@ -48,7 +49,7 @@ class StatementPrinter
             $credit = $credit->add($creditByAudience);
             // add extra credit for every ten comedy attendees
             if ($play->type === 'comedy') {
-                $creditByType = new Credit(credit: (int) floor($performance->audience / 5));
+                $creditByType = new Credit(credit: (int)floor($performance->audience / 5));
                 $credit = $credit->add($creditByType);
             }
             // print line for this order
@@ -59,5 +60,12 @@ class StatementPrinter
         $result .= "Amount owed is {$format ->formatCurrency($invoiceAmount->value() / 100, 'USD')}\n";
         $result .= "You earned {$credit} credits";
         return $result;
+    }
+
+    private function tragedyPerformanceAudienceExtraAmount(Performance $performance): Amount
+    {
+        return $performance->audience > 30
+            ? new Amount(amount: 1000 * ($performance->audience - 30))
+            : new Amount(0);
     }
 }
