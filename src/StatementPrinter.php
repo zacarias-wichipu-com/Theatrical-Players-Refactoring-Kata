@@ -27,17 +27,37 @@ class StatementPrinter
             switch ($play->type) {
                 case 'tragedy':
                     $thisAmount = 40000;
+                    $amountByPerformance = new Amount(amount: $thisAmount);
                     if ($performance->audience > 30) {
-                        $thisAmount += 1000 * ($performance->audience - 30);
+                        $performanceAmountByAudience = 1000 * ($performance->audience - 30);
+                        $thisAmount += $performanceAmountByAudience;
+                        $amountByPerformance = $amountByPerformance->add(
+                            amountToAdd: new Amount(
+                                amount: $performanceAmountByAudience
+                            )
+                        );
                     }
                     break;
 
                 case 'comedy':
                     $thisAmount = 30000;
+                    $amountByPerformance = new Amount(amount: $thisAmount);
                     if ($performance->audience > 20) {
-                        $thisAmount += 10000 + 500 * ($performance->audience - 20);
+                        $performanceAmountByAudience = 10000 + 500 * ($performance->audience - 20);
+                        $thisAmount += $performanceAmountByAudience;
+                        $amountByPerformance = $amountByPerformance->add(
+                            amountToAdd: new Amount(
+                                amount: $performanceAmountByAudience
+                            )
+                        );
                     }
-                    $thisAmount += 300 * $performance->audience;
+                    $performanceAmountByAudience = 300 * $performance->audience;
+                    $thisAmount += $performanceAmountByAudience;
+                    $amountByPerformance = $amountByPerformance->add(
+                        amountToAdd: new Amount(
+                            amount: $performanceAmountByAudience
+                        )
+                    );
                     break;
 
                 default:

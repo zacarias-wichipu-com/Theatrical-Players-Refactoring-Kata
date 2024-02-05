@@ -6,7 +6,7 @@ namespace Theatrical;
 
 final readonly class Amount
 {
-    public function __construct(private float $amount)
+    public function __construct(private int $amount)
     {
     }
 
