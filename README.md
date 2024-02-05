@@ -25,6 +25,10 @@ Acknowledgements
 ----------------
 Thankyou to Martin Fowler for kindly giving permission to use his code.
 
+Thanks also to Fran Iglesias for the teachings and for sharing his knowledge and experience in
+the [Object Calisthenics refactoring exercises series](https://www.youtube.com/watch?v=Y666Sa9fcTU) of the Emily
+Blanche [Theatrical Players Refactoring Kata](https://github.com/emilybache/Theatrical-Players-Refactoring-Kata).
+
 ## Installation
 
 The kata uses:
