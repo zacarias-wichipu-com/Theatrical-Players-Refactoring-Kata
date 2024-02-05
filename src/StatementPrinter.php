@@ -20,37 +20,7 @@ class StatementPrinter
         $format = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
         foreach ($invoice->performances as $performance) {
             $play = $plays[$performance->playId];
-
-            switch ($play->type) {
-                case 'tragedy':
-                    $performanceAmount = new Amount(amount: 40000);
-                    $performanceAmount = $performanceAmount->add(
-                        amountToAdd: $this->tragedyPerformanceAmount(
-                            performance: $performance
-                        )
-                    );
-                    $performanceAmount = $performanceAmount->add(
-                        amountToAdd: $this->tragedyPerformanceAudienceAmount(
-                            performance: $performance
-                        )
-                    );
-                    break;
-                case 'comedy':
-                    $performanceAmount = new Amount(amount: 30000);
-                    $performanceAmount = $performanceAmount->add(
-                        amountToAdd: $this->comedyPerformanceAmount(
-                            performance: $performance
-                        )
-                    );
-                    $performanceAmount = $performanceAmount->add(
-                        amountToAdd: $this->comedyPerformanceAudienceAmount(
-                            performance: $performance
-                        )
-                    );
-                    break;
-                default:
-                    throw new Error("Unknown type: {$play->type}");
-            }
+            $performanceAmount = $this->performanceAmount($performance, $play);
             // add volume credit
             $creditByAudience = new Credit(credit: max($performance->audience - 30, 0));
             $credit = $credit->add($creditByAudience);
@@ -91,5 +61,40 @@ class StatementPrinter
         return $performance->audience > 20
             ? new Amount(amount: 10000 + 500 * ($performance->audience - 20))
             : new Amount(0);
+    }
+
+    private function performanceAmount(Performance $performance, Play $play): Amount
+    {
+        switch ($play->type) {
+            case 'tragedy':
+                $performanceAmount = new Amount(amount: 40000);
+                $performanceAmount = $performanceAmount->add(
+                    amountToAdd: $this->tragedyPerformanceAmount(
+                        performance: $performance
+                    )
+                );
+                $performanceAmount = $performanceAmount->add(
+                    amountToAdd: $this->tragedyPerformanceAudienceAmount(
+                        performance: $performance
+                    )
+                );
+                break;
+            case 'comedy':
+                $performanceAmount = new Amount(amount: 30000);
+                $performanceAmount = $performanceAmount->add(
+                    amountToAdd: $this->comedyPerformanceAmount(
+                        performance: $performance
+                    )
+                );
+                $performanceAmount = $performanceAmount->add(
+                    amountToAdd: $this->comedyPerformanceAudienceAmount(
+                        performance: $performance
+                    )
+                );
+                break;
+            default:
+                throw new Error("Unknown type: {$play->type}");
+        }
+        return $performanceAmount;
     }
 }
