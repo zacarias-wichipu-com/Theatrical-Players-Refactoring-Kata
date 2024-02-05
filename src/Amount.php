@@ -6,8 +6,9 @@ namespace Theatrical;
 
 final readonly class Amount
 {
-    public function __construct(private int $amount)
-    {
+    public function __construct(
+        private int $amount
+    ) {
     }
 
     public function value(): int
@@ -15,8 +16,8 @@ final readonly class Amount
         return $this->amount;
     }
 
-    public function add(Amount $amountToAdd): Amount
+    public function add(self $amountToAdd): self
     {
-        return new Amount(amount: $this->amount + $amountToAdd->amount);
+        return new self(amount: $this->amount + $amountToAdd->amount);
     }
 }

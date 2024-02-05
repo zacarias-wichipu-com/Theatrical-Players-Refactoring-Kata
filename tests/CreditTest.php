@@ -10,12 +10,11 @@ use Theatrical\Credit;
 class CreditTest extends TestCase
 {
     /**
-     * @test
      * Be Able Add Credit
      * be_able_add_credit
      * @group credits
      */
-    public function itShouldBeAbleAddCredit(): void
+    public function testItShouldBeAbleAddCredit(): void
     {
         $credit = new Credit(credit: 10);
         $creditToAdd = new Credit(credit: 3);
@@ -23,14 +22,13 @@ class CreditTest extends TestCase
     }
 
     /**
-     * @test
      * Be Able Representing By A String
      * be_able_representing_by_a_string
      * @group credit
      */
-    public function itShouldBeAbleRepresentingByAString(): void
+    public function testItShouldBeAbleRepresentingByAString(): void
     {
         $credit = new Credit(credit: 10);
-        $this->assertEquals(expected: '10', actual: (string)($credit));
+        $this->assertEquals(expected: '10', actual: (string) ($credit));
     }
 }

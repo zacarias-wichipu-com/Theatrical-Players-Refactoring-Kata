@@ -16,10 +16,8 @@ class StatementPrinter
     {
         $invoiceAmount = new Amount(amount: 0);
         $credit = new Credit(credit: 0);
-
         $result = "Statement for {$invoice->customer}\n";
         $format = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
-
         foreach ($invoice->performances as $performance) {
             $play = $plays[$performance->playId];
 
@@ -50,7 +48,7 @@ class StatementPrinter
             $credit = $credit->add($creditByAudience);
             // add extra credit for every ten comedy attendees
             if ($play->type === 'comedy') {
-                $creditByType = new Credit(credit: (int)floor($performance->audience / 5));
+                $creditByType = new Credit(credit: (int) floor($performance->audience / 5));
                 $credit = $credit->add($creditByType);
             }
             // print line for this order
@@ -60,7 +58,6 @@ class StatementPrinter
         }
         $result .= "Amount owed is {$format ->formatCurrency($invoiceAmount->value() / 100, 'USD')}\n";
         $result .= "You earned {$credit} credits";
-
         return $result;
     }
 }

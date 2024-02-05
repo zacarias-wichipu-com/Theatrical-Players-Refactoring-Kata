@@ -10,12 +10,11 @@ use Theatrical\Amount;
 class AmountTest extends TestCase
 {
     /**
-     * @test
      * Be Able Add Amount
      * be_able_add_amount
      * @group amount
      */
-    public function itShouldBeAbleAddAmount(): void
+    public function testItShouldBeAbleAddAmount(): void
     {
         $amount = new Amount(amount: 10);
         $amountToAdd = new Amount(amount: 2);
