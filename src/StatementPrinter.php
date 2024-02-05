@@ -54,12 +54,12 @@ class StatementPrinter
             }
 
             // add volume credit
-            $creditByAudience = max($performance->audience - 30, 0);
-            $credit = $credit->add(new Credit(credit: $creditByAudience));
+            $creditByAudience = new Credit(credit: max($performance->audience - 30, 0));
+            $credit = $credit->add($creditByAudience);
             // add extra credit for every ten comedy attendees
             if ($play->type === 'comedy') {
-                $creditByType = (int)floor($performance->audience / 5);
-                $credit = $credit->add(new Credit(credit: $creditByType));
+                $creditByType = new Credit(credit: (int)floor($performance->audience / 5));
+                $credit = $credit->add($creditByType);
             }
 
             // print line for this order
