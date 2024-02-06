@@ -74,9 +74,10 @@ class StatementPrinter
 
     private function tragedyPerformanceAudienceAmount(Performance $performance): Amount
     {
-        return $performance->audience > 30
-            ? new Amount(amount: 1000 * ($performance->audience - 30))
-            : new Amount(0);
+        if ($performance->audience > 30) {
+            return new Amount(amount: 1000 * ($performance->audience - 30));
+        }
+        return new Amount(0);
     }
 
     private function comedyPerformanceAmount(Performance $performance): Amount
@@ -86,9 +87,10 @@ class StatementPrinter
 
     private function comedyPerformanceAudienceAmount(Performance $performance): Amount
     {
-        return $performance->audience > 20
-            ? new Amount(amount: 10000 + 500 * ($performance->audience - 20))
-            : new Amount(0);
+        if ($performance->audience > 20) {
+            return new Amount(amount: 10000 + 500 * ($performance->audience - 20));
+        }
+        return new Amount(0);
     }
 
     private function performanceCredit(Performance $performance, Play $play): Credit
@@ -100,8 +102,9 @@ class StatementPrinter
 
     private function performanceCreditByType(Performance $performance, Play $play): Credit
     {
-        return $play->type === 'comedy'
-            ? new Credit(credit: (int)floor($performance->audience / 5))
-            : new Credit(credit: 0);
+        if ($play->type === 'comedy') {
+            return new Credit(credit: (int)floor($performance->audience / 5));
+        }
+        return new Credit(credit: 0);
     }
 }
