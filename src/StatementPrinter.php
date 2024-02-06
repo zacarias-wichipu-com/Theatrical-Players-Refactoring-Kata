@@ -38,9 +38,7 @@ class StatementPrinter
             case 'tragedy':
                 $performanceAmount = new Amount(amount: 40000);
                 $performanceAmount = $performanceAmount->add(
-                    amountToAdd: $this->tragedyPerformanceAmount(
-                        performance: $performance
-                    )
+                    amountToAdd: $this->tragedyPerformanceAmount()
                 );
                 $performanceAmount = $performanceAmount->add(
                     amountToAdd: $this->tragedyPerformanceAudienceAmount(
@@ -67,7 +65,7 @@ class StatementPrinter
         return $performanceAmount;
     }
 
-    private function tragedyPerformanceAmount(Performance $performance): Amount
+    private function tragedyPerformanceAmount(): Amount
     {
         return new Amount(0);
     }
