@@ -34,35 +34,29 @@ class StatementPrinter
 
     private function performanceAmount(Performance $performance, Play $play): Amount
     {
-        switch ($play->type) {
-            case 'tragedy':
-                $performanceAmount = new Amount(amount: 40000);
-                $performanceAmount = $performanceAmount->add(
-                    amountToAdd: $this->tragedyPerformanceAmount()
-                );
-                $performanceAmount = $performanceAmount->add(
-                    amountToAdd: $this->tragedyPerformanceAudienceAmount(
-                        performance: $performance
-                    )
-                );
-                break;
-            case 'comedy':
-                $performanceAmount = new Amount(amount: 30000);
-                $performanceAmount = $performanceAmount->add(
-                    amountToAdd: $this->comedyPerformanceAmount(
-                        performance: $performance
-                    )
-                );
-                $performanceAmount = $performanceAmount->add(
-                    amountToAdd: $this->comedyPerformanceAudienceAmount(
-                        performance: $performance
-                    )
-                );
-                break;
-            default:
-                throw new Error("Unknown type: {$play->type}");
+        if ($play->type === 'tragedy') {
+            $performanceAmount = new Amount(amount: 40000);
+            $performanceAmount = $performanceAmount->add(amountToAdd: $this->tragedyPerformanceAmount());
+            return $performanceAmount->add(
+                amountToAdd: $this->tragedyPerformanceAudienceAmount(
+                performance: $performance
+            )
+            );
         }
-        return $performanceAmount;
+        if ($play->type === 'comedy') {
+            $performanceAmount = new Amount(amount: 30000);
+            $performanceAmount = $performanceAmount->add(
+                amountToAdd: $this->comedyPerformanceAmount(
+                performance: $performance
+            )
+            );
+            return $performanceAmount->add(
+                amountToAdd: $this->comedyPerformanceAudienceAmount(
+                performance: $performance
+            )
+            );
+        }
+        throw new Error("Unknown type: {$play->type}");
     }
 
     private function tragedyPerformanceAmount(): Amount
