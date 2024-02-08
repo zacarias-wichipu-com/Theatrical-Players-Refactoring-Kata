@@ -9,17 +9,14 @@ use NumberFormatter;
 
 class StatementPrinter
 {
-    /**
-     * @param array<string, Play> $plays
-     */
-    public function print(Invoice $invoice, array $plays): string
+    public function print(Invoice $invoice, Plays $plays): string
     {
         $invoiceAmount = new Amount(amount: 0);
         $invoiceCredit = new Credit(credit: 0);
         $result = "Statement for {$invoice->customer}\n";
         $format = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
         foreach ($invoice->performances as $performance) {
-            $play = $plays[$performance->playId];
+            $play = $plays->getById($performance->playId);
             $performanceAmount = $this->performanceAmount(performance: $performance, play: $play);
             $performanceCredit = $this->performanceCredit(performance: $performance, play: $play);
             $invoiceAmount = $invoiceAmount->add(amountToAdd: $performanceAmount);
@@ -39,21 +36,21 @@ class StatementPrinter
             $performanceAmount = $performanceAmount->add(amountToAdd: $this->tragedyPerformanceAmount());
             return $performanceAmount->add(
                 amountToAdd: $this->tragedyPerformanceAudienceAmount(
-                performance: $performance
-            )
+                    performance: $performance
+                )
             );
         }
         if ($play->type === 'comedy') {
             $performanceAmount = new Amount(amount: 30000);
             $performanceAmount = $performanceAmount->add(
                 amountToAdd: $this->comedyPerformanceAmount(
-                performance: $performance
-            )
+                    performance: $performance
+                )
             );
             return $performanceAmount->add(
                 amountToAdd: $this->comedyPerformanceAudienceAmount(
-                performance: $performance
-            )
+                    performance: $performance
+                )
             );
         }
         throw new Error("Unknown type: {$play->type}");
