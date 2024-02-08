@@ -29,6 +29,20 @@ Thanks also to Fran Iglesias for the teachings and for sharing his knowledge and
 the [Object Calisthenics refactoring exercises series](https://www.youtube.com/watch?v=Y666Sa9fcTU) of the Emily
 Blanche [Theatrical Players Refactoring Kata](https://github.com/emilybache/Theatrical-Players-Refactoring-Kata).
 
+Object Calisthenics
+-------------------
+
+This exercise follows and applies the refactoring of the original _Theatrical Players Refactoring Kata_ code by applying
+the **Object Calisthenics** as Fran Iglesias proposes in his video
+series [Object Calisthenics refactoring exercises series](https://www.youtube.com/watch?v=Y666Sa9fcTU)
+
+The following list shows the commits at which the application of each of the Object Calisthenics is started:
+
+- [Object Calisthenics: Wrap All Primitives And Strings.](https://github.com/zacarias-wichipu-com/Theatrical-Players-Refactoring-Kata/commit/64c764ef9ed6dcad64f09947381561f0c817d54a)
+- [Object Calisthenics: Only one level of indentation per method.](https://github.com/zacarias-wichipu-com/Theatrical-Players-Refactoring-Kata/commit/b04c2174b6d3c244ccfcecfbf92af24f93803f66)
+- [Object Calisthenics: Don’t use the “else” keyword.](https://github.com/zacarias-wichipu-com/Theatrical-Players-Refactoring-Kata/commit/d534764e06020de66b86bdf645512d77040305e4)
+- [Object Calisthenics: First Class Collections.](https://github.com/zacarias-wichipu-com/Theatrical-Players-Refactoring-Kata/commit/e29bfe26661d315e3495127e3576717bdf827f43)
+
 ## Installation
 
 The kata uses:
