@@ -9,6 +9,7 @@ use Error;
 use PHPUnit\Framework\TestCase;
 use Theatrical\Invoice;
 use Theatrical\Performance;
+use Theatrical\Performances;
 use Theatrical\Play;
 use Theatrical\Plays;
 use Theatrical\StatementPrinter;
@@ -27,7 +28,7 @@ final class StatementPrinterTest extends TestCase
             new Performance('as-like', 35),
             new Performance('othello', 40),
         ];
-        $invoice = new Invoice('BigCo', $performances);
+        $invoice = new Invoice(customer: 'BigCo', performances: new Performances($performances));
         $statementPrinter = new StatementPrinter();
         $result = $statementPrinter->print(invoice: $invoice, plays: new Plays($plays));
         Approvals::verifyString($result);
@@ -39,8 +40,11 @@ final class StatementPrinterTest extends TestCase
             'henry-v' => new Play('Henry V', 'history'),
             'as-like' => new Play('As You Like It', 'comedy'),
         ];
-        $performances = [new Performance('henry-v', 53), new Performance('as-like', 55)];
-        $invoice = new Invoice('BigCo', $performances);
+        $performances = [
+            new Performance('henry-v', 53),
+            new Performance('as-like', 55),
+        ];
+        $invoice = new Invoice(customer: 'BigCo', performances: new Performances($performances));
         $statementPrinter = new StatementPrinter();
         $this->expectException(Error::class);
         $statementPrinter->print(invoice: $invoice, plays: new Plays($plays));
