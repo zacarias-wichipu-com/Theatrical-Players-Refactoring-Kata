@@ -19,6 +19,28 @@ class Performance
         return $performanceCredit->add($creditByType);
     }
 
+    public function comedyAmount(): Amount
+    {
+        $performanceAmount = $this->comedyFeeAmount();
+        return $performanceAmount->add(
+            amountToAdd: $this->comedyExtraAmountByAudience()
+        );
+    }
+
+    private function comedyFeeAmount(): Amount
+    {
+        $performanceAmount = new Amount(amount: 30000);
+        return $performanceAmount->add(new Amount(amount: 300 * $this->audience));
+    }
+
+    private function comedyExtraAmountByAudience(): Amount
+    {
+        if ($this->audience > 20) {
+            return new Amount(amount: 10000 + 500 * ($this->audience - 20));
+        }
+        return new Amount(0);
+    }
+
     private function creditByPlayType(Play $play): Credit
     {
         if ($play->type === 'comedy') {
