@@ -33,9 +33,9 @@ class StatementPrinter
     {
         if ($play->type === 'tragedy') {
             $performanceAmount = new Amount(amount: 40000);
-            $performanceAmount = $performanceAmount->add(amountToAdd: $this->tragedyPerformanceAmount());
+            $performanceAmount = $performanceAmount->add(amountToAdd: $this->tragedyPerformanceFeeAmount());
             return $performanceAmount->add(
-                amountToAdd: $this->tragedyPerformanceAmountByAudience(
+                amountToAdd: $this->tragedyPerformanceExtraAmountByAudience(
                     performance: $performance
                 )
             );
@@ -43,12 +43,12 @@ class StatementPrinter
         if ($play->type === 'comedy') {
             $performanceAmount = new Amount(amount: 30000);
             $performanceAmount = $performanceAmount->add(
-                amountToAdd: $this->comedyPerformanceAmount(
+                amountToAdd: $this->comedyPerformanceFeeAmount(
                     performance: $performance
                 )
             );
             return $performanceAmount->add(
-                amountToAdd: $this->comedyPerformanceAmountByAudience(
+                amountToAdd: $this->comedyPerformanceExtraAmountByAudience(
                     performance: $performance
                 )
             );
@@ -56,12 +56,12 @@ class StatementPrinter
         throw new Error("Unknown type: {$play->type}");
     }
 
-    private function tragedyPerformanceAmount(): Amount
+    private function tragedyPerformanceFeeAmount(): Amount
     {
         return new Amount(0);
     }
 
-    private function tragedyPerformanceAmountByAudience(Performance $performance): Amount
+    private function tragedyPerformanceExtraAmountByAudience(Performance $performance): Amount
     {
         if ($performance->audience > 30) {
             return new Amount(amount: 1000 * ($performance->audience - 30));
@@ -69,12 +69,12 @@ class StatementPrinter
         return new Amount(0);
     }
 
-    private function comedyPerformanceAmount(Performance $performance): Amount
+    private function comedyPerformanceFeeAmount(Performance $performance): Amount
     {
         return new Amount(amount: 300 * $performance->audience);
     }
 
-    private function comedyPerformanceAmountByAudience(Performance $performance): Amount
+    private function comedyPerformanceExtraAmountByAudience(Performance $performance): Amount
     {
         if ($performance->audience > 20) {
             return new Amount(amount: 10000 + 500 * ($performance->audience - 20));
