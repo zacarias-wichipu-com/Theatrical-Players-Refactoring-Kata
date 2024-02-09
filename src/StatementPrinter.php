@@ -42,8 +42,7 @@ class StatementPrinter
 
     private function tragedyPerformanceAmount(Performance $performance): Amount
     {
-        $performanceAmount = new Amount(amount: 40000);
-        $performanceAmount = $performanceAmount->add(amountToAdd: $this->tragedyPerformanceFeeAmount());
+        $performanceAmount = $this->tragedyPerformanceFeeAmount();
         return $performanceAmount->add(
             amountToAdd: $this->tragedyPerformanceExtraAmountByAudience(
                 performance: $performance
@@ -53,7 +52,7 @@ class StatementPrinter
 
     private function tragedyPerformanceFeeAmount(): Amount
     {
-        return new Amount(0);
+        return new Amount(amount: 40000);
     }
 
     private function tragedyPerformanceExtraAmountByAudience(Performance $performance): Amount
