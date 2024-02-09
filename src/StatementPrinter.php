@@ -13,7 +13,7 @@ class StatementPrinter
     {
         $invoiceAmount = new Amount(amount: 0);
         $invoiceCredit = new Credit(credit: 0);
-        $result = "Statement for {$invoice->customer}\n";
+        $output = "Statement for {$invoice->customer}\n";
         $format = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
         foreach ($invoice->performances as $performance) {
             $play = $plays->getById($performance->playId);
@@ -21,12 +21,12 @@ class StatementPrinter
             $performanceCredit = $this->performanceCredit(performance: $performance, play: $play);
             $invoiceAmount = $invoiceAmount->add(amountToAdd: $performanceAmount);
             $invoiceCredit = $invoiceCredit->add(creditToAdd: $performanceCredit);
-            $result .= "  {$play->name}: {$format->formatCurrency($performanceAmount->value() / 100, 'USD')} ";
-            $result .= "({$performance->audience} seats)\n";
+            $output .= "  {$play->name}: {$format->formatCurrency($performanceAmount->value() / 100, 'USD')} ";
+            $output .= "({$performance->audience} seats)\n";
         }
-        $result .= "Amount owed is {$format ->formatCurrency($invoiceAmount->value() / 100, 'USD')}\n";
-        $result .= "You earned {$invoiceCredit} credits";
-        return $result;
+        $output .= "Amount owed is {$format ->formatCurrency($invoiceAmount->value() / 100, 'USD')}\n";
+        $output .= "You earned {$invoiceCredit} credits";
+        return $output;
     }
 
     private function performanceAmount(Performance $performance, Play $play): Amount
