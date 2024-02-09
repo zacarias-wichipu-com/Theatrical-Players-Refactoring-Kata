@@ -65,12 +65,7 @@ class StatementPrinter
 
     private function comedyPerformanceAmount(Performance $performance): Amount
     {
-        $performanceAmount = new Amount(amount: 30000);
-        $performanceAmount = $performanceAmount->add(
-            amountToAdd: $this->comedyPerformanceFeeAmount(
-                performance: $performance
-            )
-        );
+        $performanceAmount = $this->comedyPerformanceFeeAmount($performance);
         return $performanceAmount->add(
             amountToAdd: $this->comedyPerformanceExtraAmountByAudience(
                 performance: $performance
@@ -80,7 +75,8 @@ class StatementPrinter
 
     private function comedyPerformanceFeeAmount(Performance $performance): Amount
     {
-        return new Amount(amount: 300 * $performance->audience);
+        $performanceAmount = new Amount(amount: 30000);
+        return $performanceAmount->add(new Amount(amount: 300 * $performance->audience));
     }
 
     private function comedyPerformanceExtraAmountByAudience(Performance $performance): Amount
