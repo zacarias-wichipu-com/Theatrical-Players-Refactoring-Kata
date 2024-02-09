@@ -23,11 +23,13 @@ readonly class StatementPrinter
         $invoiceOutput = "Statement for {$invoice->customer}\n";
         foreach ($invoice->performances as $performance) {
             $play = $plays->getById($performance->playId);
-            $performanceAmount = $this->performanceAmount(performance: $performance, play: $play);
-            $performanceOutput = "  {$play->name}: ";
-            $performanceOutput .= "{$this->numberFormatter->formatCurrency($performanceAmount->value() / 100, 'USD')} ";
-            $performanceOutput .= "({$performance->audience} seats)\n";
-            $invoiceAmount = $invoiceAmount->add(amountToAdd: $performanceAmount);
+            $performanceOutput = $this->performanceOutput($performance, $play);
+            $invoiceAmount = $invoiceAmount->add(
+                amountToAdd: $this->performanceAmount(
+                performance: $performance,
+                play: $play
+            )
+            );
             $invoiceCredit = $invoiceCredit->add(creditToAdd: $performance->credit($play));
             $invoiceOutput .= $performanceOutput;
         }
@@ -45,6 +47,14 @@ readonly class StatementPrinter
             return $performance->comedyAmount();
         }
         throw new Error("Unknown type: {$play->type}");
+    }
+
+    private function performanceOutput(Performance $performance, Play $play): string
+    {
+        $performanceOutput = "  {$play->name}: ";
+        $performanceOutput .= "{$this->numberFormatter->formatCurrency($this->performanceAmount(performance: $performance, play: $play)->value() / 100, 'USD')} ";
+        $performanceOutput .= "({$performance->audience} seats)\n";
+        return $performanceOutput;
     }
 
 }
