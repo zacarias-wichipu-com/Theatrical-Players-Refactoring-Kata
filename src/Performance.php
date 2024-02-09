@@ -27,6 +27,27 @@ class Performance
         );
     }
 
+    public function tragedyAmount(): Amount
+    {
+        $performanceAmount = Performance::tragedyFeeAmount();
+        return $performanceAmount->add(
+            amountToAdd: $this->tragedyExtraAmountByAudience()
+        );
+    }
+
+    private function tragedyFeeAmount(): Amount
+    {
+        return new Amount(amount: 40000);
+    }
+
+    private function tragedyExtraAmountByAudience(): Amount
+    {
+        if ($this->audience > 30) {
+            return new Amount(amount: 1000 * ($this->audience - 30));
+        }
+        return new Amount(0);
+    }
+
     private function comedyFeeAmount(): Amount
     {
         $performanceAmount = new Amount(amount: 30000);

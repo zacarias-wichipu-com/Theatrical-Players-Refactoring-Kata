@@ -40,35 +40,12 @@ readonly class StatementPrinter
     private function performanceAmount(Performance $performance, Play $play): Amount
     {
         if ($play->type === 'tragedy') {
-            return $this->tragedyPerformanceAmount($performance);
+            return $performance->tragedyAmount();
         }
         if ($play->type === 'comedy') {
             return $performance->comedyAmount();
         }
         throw new Error("Unknown type: {$play->type}");
-    }
-
-    private function tragedyPerformanceAmount(Performance $performance): Amount
-    {
-        $performanceAmount = $this->tragedyPerformanceFeeAmount();
-        return $performanceAmount->add(
-            amountToAdd: $this->tragedyPerformanceExtraAmountByAudience(
-                performance: $performance
-            )
-        );
-    }
-
-    private function tragedyPerformanceFeeAmount(): Amount
-    {
-        return new Amount(amount: 40000);
-    }
-
-    private function tragedyPerformanceExtraAmountByAudience(Performance $performance): Amount
-    {
-        if ($performance->audience > 30) {
-            return new Amount(amount: 1000 * ($performance->audience - 30));
-        }
-        return new Amount(0);
     }
 
 }
