@@ -24,12 +24,11 @@ readonly class StatementPrinter
         foreach ($invoice->performances as $performance) {
             $play = $plays->getById($performance->playId);
             $performanceAmount = $this->performanceAmount(performance: $performance, play: $play);
-            $performanceCredit = $performance->credit($play);
             $performanceOutput = "  {$play->name}: ";
             $performanceOutput .= "{$this->numberFormatter->formatCurrency($performanceAmount->value() / 100, 'USD')} ";
             $performanceOutput .= "({$performance->audience} seats)\n";
             $invoiceAmount = $invoiceAmount->add(amountToAdd: $performanceAmount);
-            $invoiceCredit = $invoiceCredit->add(creditToAdd: $performanceCredit);
+            $invoiceCredit = $invoiceCredit->add(creditToAdd: $performance->credit($play));
             $invoiceOutput .= $performanceOutput;
         }
         $invoiceOutput .= "Amount owed is {$this->numberFormatter ->formatCurrency($invoiceAmount->value() / 100, 'USD')}\n";
