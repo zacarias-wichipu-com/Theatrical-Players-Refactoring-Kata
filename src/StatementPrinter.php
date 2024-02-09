@@ -32,28 +32,23 @@ class StatementPrinter
     private function performanceAmount(Performance $performance, Play $play): Amount
     {
         if ($play->type === 'tragedy') {
-            $performanceAmount = new Amount(amount: 40000);
-            $performanceAmount = $performanceAmount->add(amountToAdd: $this->tragedyPerformanceFeeAmount());
-            return $performanceAmount->add(
-                amountToAdd: $this->tragedyPerformanceExtraAmountByAudience(
-                    performance: $performance
-                )
-            );
+            return $this->tragedyPerformanceAmount($performance);
         }
         if ($play->type === 'comedy') {
-            $performanceAmount = new Amount(amount: 30000);
-            $performanceAmount = $performanceAmount->add(
-                amountToAdd: $this->comedyPerformanceFeeAmount(
-                    performance: $performance
-                )
-            );
-            return $performanceAmount->add(
-                amountToAdd: $this->comedyPerformanceExtraAmountByAudience(
-                    performance: $performance
-                )
-            );
+            return $this->comedyPerformanceAmount($performance);
         }
         throw new Error("Unknown type: {$play->type}");
+    }
+
+    private function tragedyPerformanceAmount(Performance $performance): Amount
+    {
+        $performanceAmount = new Amount(amount: 40000);
+        $performanceAmount = $performanceAmount->add(amountToAdd: $this->tragedyPerformanceFeeAmount());
+        return $performanceAmount->add(
+            amountToAdd: $this->tragedyPerformanceExtraAmountByAudience(
+                performance: $performance
+            )
+        );
     }
 
     private function tragedyPerformanceFeeAmount(): Amount
@@ -67,6 +62,21 @@ class StatementPrinter
             return new Amount(amount: 1000 * ($performance->audience - 30));
         }
         return new Amount(0);
+    }
+
+    private function comedyPerformanceAmount(Performance $performance): Amount
+    {
+        $performanceAmount = new Amount(amount: 30000);
+        $performanceAmount = $performanceAmount->add(
+            amountToAdd: $this->comedyPerformanceFeeAmount(
+                performance: $performance
+            )
+        );
+        return $performanceAmount->add(
+            amountToAdd: $this->comedyPerformanceExtraAmountByAudience(
+                performance: $performance
+            )
+        );
     }
 
     private function comedyPerformanceFeeAmount(Performance $performance): Amount
