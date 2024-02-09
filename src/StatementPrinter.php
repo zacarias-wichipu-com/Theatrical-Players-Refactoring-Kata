@@ -24,7 +24,7 @@ readonly class StatementPrinter
         foreach ($invoice->performances as $performance) {
             $play = $plays->getById($performance->playId);
             $performanceAmount = $this->performanceAmount(performance: $performance, play: $play);
-            $performanceCredit = $this->performanceCredit(performance: $performance, play: $play);
+            $performanceCredit = $performance->credit($play);
             $performanceOutput = "  {$play->name}: ";
             $performanceOutput .= "{$this->numberFormatter->formatCurrency($performanceAmount->value() / 100, 'USD')} ";
             $performanceOutput .= "({$performance->audience} seats)\n";
@@ -93,20 +93,5 @@ readonly class StatementPrinter
             return new Amount(amount: 10000 + 500 * ($performance->audience - 20));
         }
         return new Amount(0);
-    }
-
-    private function performanceCredit(Performance $performance, Play $play): Credit
-    {
-        $performanceCredit = new Credit(credit: max($performance->audience - 30, 0));
-        $creditByType = $this->performanceCreditByType($performance, $play);
-        return $performanceCredit->add($creditByType);
-    }
-
-    private function performanceCreditByType(Performance $performance, Play $play): Credit
-    {
-        if ($play->type === 'comedy') {
-            return new Credit(credit: (int)floor($performance->audience / 5));
-        }
-        return new Credit(credit: 0);
     }
 }
