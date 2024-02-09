@@ -7,24 +7,31 @@ namespace Theatrical;
 use Error;
 use NumberFormatter;
 
-class StatementPrinter
+readonly class StatementPrinter
 {
+    private NumberFormatter $numberFormatter;
+
+    public function __construct()
+    {
+        $this->numberFormatter = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
+    }
+
     public function print(Invoice $invoice, Plays $plays): string
     {
         $invoiceAmount = new Amount(amount: 0);
         $invoiceCredit = new Credit(credit: 0);
         $output = "Statement for {$invoice->customer}\n";
-        $format = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
         foreach ($invoice->performances as $performance) {
             $play = $plays->getById($performance->playId);
             $performanceAmount = $this->performanceAmount(performance: $performance, play: $play);
             $performanceCredit = $this->performanceCredit(performance: $performance, play: $play);
             $invoiceAmount = $invoiceAmount->add(amountToAdd: $performanceAmount);
             $invoiceCredit = $invoiceCredit->add(creditToAdd: $performanceCredit);
-            $output .= "  {$play->name}: {$format->formatCurrency($performanceAmount->value() / 100, 'USD')} ";
+            $output .= "  {$play->name}: ";
+            $output .= "{$this->numberFormatter->formatCurrency($performanceAmount->value() / 100, 'USD')} ";
             $output .= "({$performance->audience} seats)\n";
         }
-        $output .= "Amount owed is {$format ->formatCurrency($invoiceAmount->value() / 100, 'USD')}\n";
+        $output .= "Amount owed is {$this->numberFormatter ->formatCurrency($invoiceAmount->value() / 100, 'USD')}\n";
         $output .= "You earned {$invoiceCredit} credits";
         return $output;
     }
