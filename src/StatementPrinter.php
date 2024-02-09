@@ -35,7 +35,7 @@ class StatementPrinter
             $performanceAmount = new Amount(amount: 40000);
             $performanceAmount = $performanceAmount->add(amountToAdd: $this->tragedyPerformanceAmount());
             return $performanceAmount->add(
-                amountToAdd: $this->tragedyPerformanceAudienceAmount(
+                amountToAdd: $this->tragedyPerformanceAmountByAudience(
                     performance: $performance
                 )
             );
@@ -48,7 +48,7 @@ class StatementPrinter
                 )
             );
             return $performanceAmount->add(
-                amountToAdd: $this->comedyPerformanceAudienceAmount(
+                amountToAdd: $this->comedyPerformanceAmountByAudience(
                     performance: $performance
                 )
             );
@@ -61,7 +61,7 @@ class StatementPrinter
         return new Amount(0);
     }
 
-    private function tragedyPerformanceAudienceAmount(Performance $performance): Amount
+    private function tragedyPerformanceAmountByAudience(Performance $performance): Amount
     {
         if ($performance->audience > 30) {
             return new Amount(amount: 1000 * ($performance->audience - 30));
@@ -74,7 +74,7 @@ class StatementPrinter
         return new Amount(amount: 300 * $performance->audience);
     }
 
-    private function comedyPerformanceAudienceAmount(Performance $performance): Amount
+    private function comedyPerformanceAmountByAudience(Performance $performance): Amount
     {
         if ($performance->audience > 20) {
             return new Amount(amount: 10000 + 500 * ($performance->audience - 20));
