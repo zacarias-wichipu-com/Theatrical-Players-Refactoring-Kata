@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Theatrical;
 
+use Error;
+
 class Performance
 {
     public function __construct(
@@ -17,6 +19,17 @@ class Performance
         $performanceCredit = new Credit(credit: max($this->audience - 30, 0));
         $creditByType = $this->creditByPlayType($play);
         return $performanceCredit->add($creditByType);
+    }
+
+    public function amount(Play $play): Amount
+    {
+        if ($play->type === 'tragedy') {
+            return $this->tragedyAmount();
+        }
+        if ($play->type === 'comedy') {
+            return $this->comedyAmount();
+        }
+        throw new Error("Unknown type: {$play->type}");
     }
 
     public function comedyAmount(): Amount

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Theatrical;
 
-use Error;
 use NumberFormatter;
 
 readonly class StatementPrinter
@@ -25,10 +24,7 @@ readonly class StatementPrinter
             $play = $plays->getById($performance->playId);
             $performanceOutput = $this->performanceOutput($performance, $play);
             $invoiceAmount = $invoiceAmount->add(
-                amountToAdd: $this->performanceAmount(
-                performance: $performance,
-                play: $play
-            )
+                amountToAdd: $performance->amount(play: $play)
             );
             $invoiceCredit = $invoiceCredit->add(creditToAdd: $performance->credit($play));
             $invoiceOutput .= $performanceOutput;
@@ -38,21 +34,10 @@ readonly class StatementPrinter
         return $invoiceOutput;
     }
 
-    private function performanceAmount(Performance $performance, Play $play): Amount
-    {
-        if ($play->type === 'tragedy') {
-            return $performance->tragedyAmount();
-        }
-        if ($play->type === 'comedy') {
-            return $performance->comedyAmount();
-        }
-        throw new Error("Unknown type: {$play->type}");
-    }
-
     private function performanceOutput(Performance $performance, Play $play): string
     {
         $performanceOutput = "  {$play->name}: ";
-        $performanceOutput .= "{$this->numberFormatter->formatCurrency($this->performanceAmount(performance: $performance, play: $play)->value() / 100, 'USD')} ";
+        $performanceOutput .= "{$this->numberFormatter->formatCurrency($performance->amount($play)->value() / 100, 'USD')} ";
         $performanceOutput .= "({$performance->audience} seats)\n";
         return $performanceOutput;
     }
