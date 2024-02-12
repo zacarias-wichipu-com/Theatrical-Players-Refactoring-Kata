@@ -42,7 +42,7 @@ class Performance
 
     private function tragedyAmount(): Amount
     {
-        $performanceAmount = Performance::tragedyFeeAmount();
+        $performanceAmount = $this->tragedyFeeAmount();
         return $performanceAmount->add(
             amountToAdd: $this->tragedyExtraAmountByAudience()
         );
