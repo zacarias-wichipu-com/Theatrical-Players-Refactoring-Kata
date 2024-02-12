@@ -4,18 +4,8 @@ declare(strict_types=1);
 
 namespace Theatrical;
 
-use NumberFormatter;
-
 readonly class StatementPrinter
 {
-    public const string CURRENCY_USD = 'USD';
-    private NumberFormatter $numberFormatter;
-
-    public function __construct()
-    {
-        $this->numberFormatter = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
-    }
-
     public function print(Invoice $invoice, Plays $plays): string
     {
         $invoiceAmount = new Amount(amount: 0);
