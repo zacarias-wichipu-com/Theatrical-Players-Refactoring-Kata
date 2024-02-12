@@ -22,7 +22,9 @@ readonly class StatementPrinter
         $invoiceOutput = "Statement for {$invoice->customer}\n";
         foreach ($invoice->performances as $performance) {
             $play = $plays->getById($performance->playId);
-            $performanceOutput = $this->performanceOutput($performance, $play);
+            $performanceOutput = "  {$play->name}: ";
+            $performanceOutput .= "{$this->numberFormatter->formatCurrency($performance->amount($play)->value() / 100, 'USD')} ";
+            $performanceOutput .= "({$performance->audience} seats)\n";
             $invoiceAmount = $invoiceAmount->add(
                 amountToAdd: $performance->amount(play: $play)
             );
@@ -32,14 +34,6 @@ readonly class StatementPrinter
         $invoiceOutput .= "Amount owed is {$this->numberFormatter ->formatCurrency($invoiceAmount->value() / 100, 'USD')}\n";
         $invoiceOutput .= "You earned {$invoiceCredit} credits";
         return $invoiceOutput;
-    }
-
-    private function performanceOutput(Performance $performance, Play $play): string
-    {
-        $performanceOutput = "  {$play->name}: ";
-        $performanceOutput .= "{$this->numberFormatter->formatCurrency($performance->amount($play)->value() / 100, 'USD')} ";
-        $performanceOutput .= "({$performance->audience} seats)\n";
-        return $performanceOutput;
     }
 
 }
