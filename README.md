@@ -42,6 +42,7 @@ The following list shows the commits at which the application of each of the Obj
 - [Object Calisthenics: Only one level of indentation per method.](https://github.com/zacarias-wichipu-com/Theatrical-Players-Refactoring-Kata/commit/b04c2174b6d3c244ccfcecfbf92af24f93803f66)
 - [Object Calisthenics: Don’t use the “else” keyword.](https://github.com/zacarias-wichipu-com/Theatrical-Players-Refactoring-Kata/commit/d534764e06020de66b86bdf645512d77040305e4)
 - [Object Calisthenics: First Class Collections.](https://github.com/zacarias-wichipu-com/Theatrical-Players-Refactoring-Kata/commit/e29bfe26661d315e3495127e3576717bdf827f43)
+- [Object Calisthenics: One Dot Per Line.](https://github.com/zacarias-wichipu-com/Theatrical-Players-Refactoring-Kata/commit/03589d95966bba9e5e076d0f903ad6761c74cb68)
 
 ## Installation
 
