@@ -32,7 +32,7 @@ class Performance
         throw new Error("Unknown type: {$play->type}");
     }
 
-    public function comedyAmount(): Amount
+    private function comedyAmount(): Amount
     {
         $performanceAmount = $this->comedyFeeAmount();
         return $performanceAmount->add(
@@ -40,7 +40,7 @@ class Performance
         );
     }
 
-    public function tragedyAmount(): Amount
+    private function tragedyAmount(): Amount
     {
         $performanceAmount = Performance::tragedyFeeAmount();
         return $performanceAmount->add(
