@@ -24,8 +24,9 @@ readonly class StatementPrinter
         /** @var Performance $performance */
         foreach ($invoice->performances as $performance) {
             $play = $plays->getById($performance->playId);
+            $performanceAmount = $performance->amount($play);
             $performanceOutput = "  {$play->name}: ";
-            $performanceOutput .= "{$this->formatCurrencyAmount($performance->amount($play))} ";
+            $performanceOutput .= "{$performanceAmount->USDFormatCurrency()} ";
             $performanceOutput .= "({$performance->audience} seats)\n";
             $invoiceAmount = $invoiceAmount->add(
                 amountToAdd: $performance->amount(play: $play)
@@ -33,13 +34,8 @@ readonly class StatementPrinter
             $invoiceCredit = $invoiceCredit->add(creditToAdd: $performance->credit($play));
             $invoiceOutput .= $performanceOutput;
         }
-        $invoiceOutput .= "Amount owed is {$this->formatCurrencyAmount($invoiceAmount)}\n";
+        $invoiceOutput .= "Amount owed is {$invoiceAmount->USDFormatCurrency()}\n";
         $invoiceOutput .= "You earned {$invoiceCredit} credits";
         return $invoiceOutput;
-    }
-
-    private function formatCurrencyAmount(Amount $amount): string|false
-    {
-        return $this->numberFormatter->formatCurrency($amount->value() / 100, self::CURRENCY_USD);
     }
 }
