@@ -1,7 +1,7 @@
 Theatrical Players Refactoring Kata
 ====================================
 
-The first chapter of ['Refactoring' by Martin Fowler, 2nd Edition](https://www.thoughtworks.com/books/refactoring2)
+The first chapter of [\'Refactoring\' by Martin Fowler, 2nd Edition](https://www.thoughtworks.com/books/refactoring2)
 contains a worked example of this exercise, in javascript. That chapter is available to download for free.
 
 This is the PHP version for this exercise, with tests, so you can try it out for yourself.
@@ -23,7 +23,7 @@ expect to find.
 
 Acknowledgements
 ----------------
-Thankyou to Martin Fowler for kindly giving permission to use his code.
+Thank you to Martin Fowler for kindly giving permission to use his code.
 
 Thanks also to Fran Iglesias for the teachings and for sharing his knowledge and experience in
 the [Object Calisthenics refactoring exercises series](https://www.youtube.com/watch?v=Y666Sa9fcTU) of the Emily
