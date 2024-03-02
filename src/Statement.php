@@ -22,7 +22,8 @@ final class Statement
     {
     }
 
-    public function print(): void
+    public function print(): string
     {
+        return 'Generating the new statement';
     }
 }

@@ -31,7 +31,6 @@ readonly class StatementPrinter
         $statement->fillAmount($invoiceAmount);
         $invoiceOutput .= "You earned {$invoiceCredit} credits";
         $statement->fillCredit($invoiceCredit);
-        $statement->print();
-        return $invoiceOutput;
+        return $statement->print();
     }
 }

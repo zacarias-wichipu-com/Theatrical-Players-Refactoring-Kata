@@ -286,3 +286,5 @@ Temporary Items
 /build/
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,intellij,intellij+iml,intellij+all,composer,phpunit
+
+/tests/approvals/*.received.txt
