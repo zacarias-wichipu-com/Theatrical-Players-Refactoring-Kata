@@ -16,8 +16,7 @@ final readonly class Invoice
     {
         $statement->fillCustomer(customer: $this->customer);
         foreach ($this->performances as $performance) {
-            $play = $plays->getById($performance->playId);
-            $statement->fillLine(name: $play->name, amount: $performance->amount($play), audience: $performance->audience);
+            $performance->fill($statement, $plays);
         }
         $statement->fillAmount(amount: $this->amount($plays));
         $statement->fillCredit(credit: $this->credit($plays));

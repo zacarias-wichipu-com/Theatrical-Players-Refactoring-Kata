@@ -32,6 +32,12 @@ class Performance
         throw new Error("Unknown type: {$play->type}");
     }
 
+    public function fill(Statement $statement, Plays $plays): void
+    {
+        $play = $plays->getById($this->playId);
+        $statement->fillLine(name: $play->name, amount: $this->amount($play), audience: $this->audience);
+    }
+
     private function comedyAmount(): Amount
     {
         $performanceAmount = $this->comedyFeeAmount();
