@@ -25,8 +25,7 @@ final readonly class Invoice
     private function amount(Plays $plays): Amount {
         $invoiceAmount = new Amount(amount: 0);
         foreach ($this->performances as $performance) {
-            $play = $plays->getById($performance->playId);
-            $invoiceAmount = $invoiceAmount->add(amountToAdd: $performance->amount(play: $play));
+            $invoiceAmount = $invoiceAmount->add(amountToAdd: $performance->amount(plays: $plays));
         }
         return $invoiceAmount;
     }

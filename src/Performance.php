@@ -21,8 +21,9 @@ class Performance
         return $performanceCredit->add($creditByType);
     }
 
-    public function amount(Play $play): Amount
+    public function amount(Plays $plays): Amount
     {
+        $play = $plays->getById($this->playId);
         if ($play->type === 'tragedy') {
             return $this->tragedyAmount();
         }
@@ -35,7 +36,7 @@ class Performance
     public function fill(Statement $statement, Plays $plays): void
     {
         $play = $plays->getById($this->playId);
-        $statement->fillLine(name: $play->name, amount: $this->amount($play), audience: $this->audience);
+        $statement->fillLine(name: $play->name, amount: $this->amount($plays), audience: $this->audience);
     }
 
     private function comedyAmount(): Amount
