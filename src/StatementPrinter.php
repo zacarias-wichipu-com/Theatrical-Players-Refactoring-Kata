@@ -11,18 +11,16 @@ readonly class StatementPrinter
         $invoiceAmount = new Amount(amount: 0);
         $invoiceCredit = new Credit(credit: 0);
         $statement = new Statement();
-        $statement->fillCustomer($invoice->customer);
+        $statement->fillCustomer(customer: $invoice->customer);
         /** @var Performance $performance */
         foreach ($invoice->performances as $performance) {
             $play = $plays->getById($performance->playId);
-            $statement->fillLine($play->name, $performance->amount($play), $performance->audience);
-            $invoiceAmount = $invoiceAmount->add(
-                amountToAdd: $performance->amount(play: $play)
-            );
+            $statement->fillLine(name: $play->name, amount: $performance->amount($play), audience: $performance->audience);
+            $invoiceAmount = $invoiceAmount->add(amountToAdd: $performance->amount(play: $play));
             $invoiceCredit = $invoiceCredit->add(creditToAdd: $performance->credit($play));
         }
-        $statement->fillAmount($invoiceAmount);
-        $statement->fillCredit($invoiceCredit);
+        $statement->fillAmount(amount: $invoiceAmount);
+        $statement->fillCredit(credit: $invoiceCredit);
         return $statement->print();
     }
 }

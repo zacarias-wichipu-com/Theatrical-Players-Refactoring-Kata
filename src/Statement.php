@@ -9,6 +9,7 @@ final class Statement
     private string $customer;
     private array $lines;
     private Amount $amount;
+    private Credit $credit;
 
     public function fillCustomer(string $customer): void
     {
@@ -24,14 +25,14 @@ final class Statement
         ];
     }
 
-    public function fillAmount(Amount $invoiceAmount): void
+    public function fillAmount(Amount $amount): void
     {
-        $this->amount = $invoiceAmount;
+        $this->amount = $amount;
     }
 
-    public function fillCredit(Credit $invoiceCredit): void
+    public function fillCredit(Credit $credit): void
     {
-        $this->credit = $invoiceCredit;
+        $this->credit = $credit;
     }
 
     public function print(): string
