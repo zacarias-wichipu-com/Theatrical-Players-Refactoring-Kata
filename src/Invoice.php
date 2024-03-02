@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Theatrical;
 
-class Invoice
+final readonly class Invoice
 {
     public function __construct(
-        public string $customer,
-        public Performances $performances
+        private string $customer,
+        private Performances $performances
     ) {
     }
 
@@ -17,7 +17,6 @@ class Invoice
         $invoiceAmount = new Amount(amount: 0);
         $invoiceCredit = new Credit(credit: 0);
         $statement->fillCustomer(customer: $this->customer);
-        /** @var Performance $performance */
         foreach ($this->performances as $performance) {
             $play = $plays->getById($performance->playId);
             $invoiceAmount = $invoiceAmount->add(amountToAdd: $performance->amount(play: $play));
