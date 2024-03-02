@@ -6,11 +6,11 @@ namespace Theatrical;
 
 use Error;
 
-class Performance
+final readonly class Performance
 {
     public function __construct(
-        public string $playId,
-        public int $audience
+        private string $playId,
+        private int $audience
     ) {
     }
 
