@@ -34,8 +34,7 @@ final readonly class Invoice
     {
         $invoiceCredit = new Credit(credit: 0);
         foreach ($this->performances as $performance) {
-            $play = $plays->getById($performance->playId);
-            $invoiceCredit = $invoiceCredit->add(creditToAdd: $performance->credit($play));
+            $invoiceCredit = $invoiceCredit->add(creditToAdd: $performance->credit(plays: $plays));
         }
         return $invoiceCredit;
     }
