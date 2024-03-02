@@ -14,16 +14,13 @@ final readonly class Invoice
 
     public function fill(Statement $statement, Plays $plays): void
     {
-        $invoiceCredit = new Credit(credit: 0);
         $statement->fillCustomer(customer: $this->customer);
         foreach ($this->performances as $performance) {
             $play = $plays->getById($performance->playId);
-            $invoiceCredit = $invoiceCredit->add(creditToAdd: $performance->credit($play));
-            $statement->fillLine(name: $play->name, amount: $performance->amount($play),
-                audience: $performance->audience);
+            $statement->fillLine(name: $play->name, amount: $performance->amount($play), audience: $performance->audience);
         }
         $statement->fillAmount(amount: $this->amount($plays));
-        $statement->fillCredit(credit: $invoiceCredit);
+        $statement->fillCredit(credit: $this->credit($plays));
     }
 
     private function amount(Plays $plays): Amount {
@@ -33,5 +30,15 @@ final readonly class Invoice
             $invoiceAmount = $invoiceAmount->add(amountToAdd: $performance->amount(play: $play));
         }
         return $invoiceAmount;
+    }
+
+    private function credit(Plays $plays): Credit
+    {
+        $invoiceCredit = new Credit(credit: 0);
+        foreach ($this->performances as $performance) {
+            $play = $plays->getById($performance->playId);
+            $invoiceCredit = $invoiceCredit->add(creditToAdd: $performance->credit($play));
+        }
+        return $invoiceCredit;
     }
 }
