@@ -31,6 +31,7 @@ final class Statement
 
     public function fillCredit(Credit $invoiceCredit): void
     {
+        $this->credit = $invoiceCredit;
     }
 
     public function print(): string
@@ -38,6 +39,7 @@ final class Statement
         $statement = "Statement for {$this->customer}\n";
         $statement .= $this->printLines();
         $statement .= "Amount owed is {$this->amount->USDFormatCurrency()}\n";
+        $statement .= "You earned {$this->credit} credits";
         return $statement;
     }
 
