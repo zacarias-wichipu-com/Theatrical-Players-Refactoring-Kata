@@ -12,7 +12,7 @@ class Invoice
     ) {
     }
 
-    public function fillInvoice(Statement $statement, Plays $plays): void
+    public function fill(Statement $statement, Plays $plays): void
     {
         $invoiceAmount = new Amount(amount: 0);
         $invoiceCredit = new Credit(credit: 0);

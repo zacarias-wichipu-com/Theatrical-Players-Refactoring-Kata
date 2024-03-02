@@ -9,8 +9,7 @@ readonly class StatementPrinter
     public function print(Invoice $invoice, Plays $plays): string
     {
         $statement = new Statement();
-        $invoice->fillInvoice($statement, $plays);
+        $invoice->fill($statement, $plays);
         return $statement->print();
     }
-
 }
