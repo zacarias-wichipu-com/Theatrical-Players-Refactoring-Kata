@@ -8,6 +8,7 @@ final class Statement
 {
     private string $customer;
     private array $lines;
+    private Amount $amount;
 
     public function fillCustomer(string $customer): void
     {
@@ -25,6 +26,7 @@ final class Statement
 
     public function fillAmount(Amount $invoiceAmount): void
     {
+        $this->amount = $invoiceAmount;
     }
 
     public function fillCredit(Credit $invoiceCredit): void
@@ -35,6 +37,7 @@ final class Statement
     {
         $statement = "Statement for {$this->customer}\n";
         $statement .= $this->printLines();
+        $statement .= "Amount owed is {$this->amount->USDFormatCurrency()}\n";
         return $statement;
     }
 
