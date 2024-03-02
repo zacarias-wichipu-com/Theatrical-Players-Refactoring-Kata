@@ -15,9 +15,9 @@ readonly class StatementPrinter
         /** @var Performance $performance */
         foreach ($invoice->performances as $performance) {
             $play = $plays->getById($performance->playId);
-            $statement->fillLine(name: $play->name, amount: $performance->amount($play), audience: $performance->audience);
             $invoiceAmount = $invoiceAmount->add(amountToAdd: $performance->amount(play: $play));
             $invoiceCredit = $invoiceCredit->add(creditToAdd: $performance->credit($play));
+            $statement->fillLine(name: $play->name, amount: $performance->amount($play), audience: $performance->audience);
         }
         $statement->fillAmount(amount: $invoiceAmount);
         $statement->fillCredit(credit: $invoiceCredit);
