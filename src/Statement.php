@@ -48,7 +48,7 @@ final class Statement
     {
         return array_reduce(
             array: $this->lines,
-            callback: fn(string $carry, array $line): string => $carry .= "  {$line['name']}: {$line['amount']->USDFormatCurrency()} ({$line['audience']} seats)\n",
+            callback: static fn(string $carry, array $line): string => $carry .= "  {$line['name']}: {$line['amount']->USDFormatCurrency()} ({$line['audience']} seats)\n",
             initial: '');
     }
 }
