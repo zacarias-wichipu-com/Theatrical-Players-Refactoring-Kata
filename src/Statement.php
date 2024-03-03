@@ -11,12 +11,12 @@ final class Statement
     private Amount $amount;
     private Credit $credit;
 
-    public function fillCustomer(string $customer): void
+    private function fillCustomer(string $customer): void
     {
         $this->customer = $customer;
     }
 
-    public function fillLine(string $name, Amount $amount, int $audience): void
+    private function fillLine(string $name, Amount $amount, int $audience): void
     {
         $this->lines[] = [
             'name' => $name,
@@ -25,12 +25,12 @@ final class Statement
         ];
     }
 
-    public function fillAmount(Amount $amount): void
+    private function fillAmount(Amount $amount): void
     {
         $this->amount = $amount;
     }
 
-    public function fillCredit(Credit $credit): void
+    private function fillCredit(Credit $credit): void
     {
         $this->credit = $credit;
     }
@@ -46,7 +46,12 @@ final class Statement
 
     public function fill(string $field, mixed $value): void
     {
-        $this->fillCustomer($value);
+        match ($field) {
+            'customer' => $this->fillCustomer($value),
+            'amount' => $this->fillAmount($value),
+            'credit' => $this->fillCredit($value),
+            'line' => $this->fillLine(name: $value['name'], amount: $value['amount'], audience: $value['audience']),
+        };
     }
 
     private function printLines(): string

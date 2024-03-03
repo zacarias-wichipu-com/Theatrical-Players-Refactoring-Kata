@@ -18,8 +18,8 @@ final readonly class Invoice
         foreach ($this->performances as $performance) {
             $performance->fill($statement, $plays);
         }
-        $statement->fillAmount(amount: $this->amount($plays));
-        $statement->fillCredit(credit: $this->credit($plays));
+        $statement->fill(field: 'amount', value: $this->amount($plays));
+        $statement->fill(field: 'credit', value: $this->credit($plays));
     }
 
     private function amount(Plays $plays): Amount {

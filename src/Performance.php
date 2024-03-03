@@ -37,7 +37,11 @@ final readonly class Performance
     public function fill(Statement $statement, Plays $plays): void
     {
         $play = $plays->getById($this->playId);
-        $statement->fillLine(name: $play->name, amount: $this->amount($plays), audience: $this->audience);
+        $statement->fill('line', [
+            'name' => $play->name,
+            'amount' => $this->amount($plays),
+            'audience' => $this->audience,
+        ]);
     }
 
     private function comedyAmount(): Amount
