@@ -34,10 +34,10 @@ final readonly class Performance
         throw new Error("Unknown type: {$play->type}");
     }
 
-    public function fill(Statement $statement, Plays $plays): void
+    public function fill(Fillable $fillable, Plays $plays): void
     {
         $play = $plays->getById($this->playId);
-        $statement->fill('line', [
+        $fillable->fill('line', [
             'name' => $play->name,
             'amount' => $this->amount($plays),
             'audience' => $this->audience,

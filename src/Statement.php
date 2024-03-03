@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Theatrical;
 
-final class Statement
+final class Statement implements Fillable
 {
     private string $customer;
     private array $lines;

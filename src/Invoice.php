@@ -12,14 +12,14 @@ final readonly class Invoice
     ) {
     }
 
-    public function fill(Statement $statement, Plays $plays): void
+    public function fill(Fillable $fillable, Plays $plays): void
     {
-        $statement->fill(field: 'customer', value: $this->customer);
+        $fillable->fill(field: 'customer', value: $this->customer);
         foreach ($this->performances as $performance) {
-            $performance->fill($statement, $plays);
+            $performance->fill($fillable, $plays);
         }
-        $statement->fill(field: 'amount', value: $this->amount($plays));
-        $statement->fill(field: 'credit', value: $this->credit($plays));
+        $fillable->fill(field: 'amount', value: $this->amount($plays));
+        $fillable->fill(field: 'credit', value: $this->credit($plays));
     }
 
     private function amount(Plays $plays): Amount {
