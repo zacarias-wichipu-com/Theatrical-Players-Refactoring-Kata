@@ -14,7 +14,7 @@ final readonly class Invoice
 
     public function fill(Statement $statement, Plays $plays): void
     {
-        $statement->fillCustomer(customer: $this->customer);
+        $statement->fill(field: 'customer', value: $this->customer);
         foreach ($this->performances as $performance) {
             $performance->fill($statement, $plays);
         }

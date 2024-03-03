@@ -44,11 +44,19 @@ final class Statement
         return $statement;
     }
 
+    public function fill(string $field, mixed $value): void
+    {
+        $this->fillCustomer($value);
+    }
+
     private function printLines(): string
     {
         return array_reduce(
             array: $this->lines,
-            callback: static fn(string $carry, array $line): string => $carry .= "  {$line['name']}: {$line['amount']->USDFormatCurrency()} ({$line['audience']} seats)\n",
+            callback: static fn(
+                string $carry,
+                array $line
+            ): string => $carry .= "  {$line['name']}: {$line['amount']->USDFormatCurrency()} ({$line['audience']} seats)\n",
             initial: '');
     }
 }
