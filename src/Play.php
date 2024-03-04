@@ -36,7 +36,7 @@ class Play implements Stringable
         if ($this->genre === 'comedy') {
             return $this->comedyAmount($audience);
         }
-        throw new Error("Unknown type: {$this->genre}");
+        throw new Error("Unknown genre: {$this->genre}");
     }
 
     private function tragedyAmount(int $audience): Amount
