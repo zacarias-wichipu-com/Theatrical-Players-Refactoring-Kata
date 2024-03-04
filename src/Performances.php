@@ -20,7 +20,6 @@ final readonly class Performances implements IteratorAggregate
 
     /**
      * @return Traversable<int,Performance>
-     * @return Collection<int,Performance>
      */
     #[Override] public function getIterator(): Traversable
     {
