@@ -16,4 +16,12 @@ class Play implements \Stringable
     {
         return (string) $this->name . ' : ' . $this->type;
     }
+
+    public function credit(int $audience): Credit
+    {
+        if ($this->type === 'comedy') {
+            return new Credit(credit: (int) floor($audience / 5));
+        }
+        return new Credit(credit: 0);
+    }
 }

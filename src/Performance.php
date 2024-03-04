@@ -18,8 +18,7 @@ final readonly class Performance
     {
         $play = $plays->getById($this->playId);
         $performanceCredit = new Credit(credit: max($this->audience - 30, 0));
-        $creditByType = $this->creditByPlayType($play);
-        return $performanceCredit->add($creditByType);
+        return $performanceCredit->add($play->credit($this->audience));
     }
 
     public function amount(Plays $plays): Amount
@@ -87,11 +86,4 @@ final readonly class Performance
         return new Amount(0);
     }
 
-    private function creditByPlayType(Play $play): Credit
-    {
-        if ($play->type === 'comedy') {
-            return new Credit(credit: (int) floor($this->audience / 5));
-        }
-        return new Credit(credit: 0);
-    }
 }
