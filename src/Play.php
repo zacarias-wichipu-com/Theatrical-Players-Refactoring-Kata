@@ -11,18 +11,18 @@ class Play implements Stringable
 {
     public function __construct(
         public string $name,
-        public string $type
+        private string $genre
     ) {
     }
 
     public function __toString(): string
     {
-        return (string) $this->name . ' : ' . $this->type;
+        return (string) $this->name . ' : ' . $this->genre;
     }
 
     public function credit(int $audience): Credit
     {
-        if ($this->type === 'comedy') {
+        if ($this->genre === 'comedy') {
             return new Credit(credit: (int) floor($audience / 5));
         }
         return new Credit(credit: 0);
@@ -30,13 +30,13 @@ class Play implements Stringable
 
     public function amount(int $audience): Amount
     {
-        if ($this->type === 'tragedy') {
+        if ($this->genre === 'tragedy') {
             return $this->tragedyAmount($audience);
         }
-        if ($this->type === 'comedy') {
+        if ($this->genre === 'comedy') {
             return $this->comedyAmount($audience);
         }
-        throw new Error("Unknown type: {$this->type}");
+        throw new Error("Unknown type: {$this->genre}");
     }
 
     private function tragedyAmount(int $audience): Amount
