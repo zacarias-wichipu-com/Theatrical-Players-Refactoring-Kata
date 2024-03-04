@@ -22,7 +22,7 @@ final readonly class Performance
     public function amount(Plays $plays): Amount
     {
         $play = $plays->getById($this->playId);
-        return $play->amountByGenre($this->audience);
+        return $play->amount($this->audience);
     }
 
     public function fill(Fillable $fillable, Plays $plays): void

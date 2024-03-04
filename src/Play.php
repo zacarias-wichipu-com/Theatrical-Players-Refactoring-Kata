@@ -28,7 +28,7 @@ class Play implements Stringable
         return new Credit(credit: 0);
     }
 
-    public function amountByGenre(int $audience): Amount
+    public function amount(int $audience): Amount
     {
         if ($this->type === 'tragedy') {
             return $this->tragedyAmount($audience);
@@ -39,7 +39,7 @@ class Play implements Stringable
         throw new Error("Unknown type: {$this->type}");
     }
 
-    public function tragedyAmount(int $audience): Amount
+    private function tragedyAmount(int $audience): Amount
     {
         $feeAmount = $this->tragedyFeeAmount();
         return $feeAmount->add(
@@ -47,7 +47,7 @@ class Play implements Stringable
         );
     }
 
-    public function tragedyFeeAmount(): Amount
+    private function tragedyFeeAmount(): Amount
     {
         return new Amount(amount: 40000);
     }
@@ -60,7 +60,7 @@ class Play implements Stringable
         return new Amount(0);
     }
 
-    public function comedyAmount(int $audience): Amount
+    private function comedyAmount(int $audience): Amount
     {
         $feeAmount = $this->comedyFeeAmount($audience);
         return $feeAmount->add(
@@ -68,13 +68,13 @@ class Play implements Stringable
         );
     }
 
-    public function comedyFeeAmount(int $audience): Amount
+    private function comedyFeeAmount(int $audience): Amount
     {
         $amount = new Amount(amount: 30000);
         return $amount->add(new Amount(amount: 300 * $audience));
     }
 
-    public function comedyExtraAmountByAudience(int $audience): Amount
+    private function comedyExtraAmountByAudience(int $audience): Amount
     {
         if ($audience > 20) {
             return new Amount(amount: 10000 + 500 * ($audience - 20));
