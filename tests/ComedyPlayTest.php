@@ -9,12 +9,15 @@ use Theatrical\Play;
 
 class ComedyPlayTest extends TestCase
 {
+    const string GENRE = 'comedy';
+    const string TITLE = 'My Comedy';
+
     /**
      * @dataProvider comedyAmountTestData
      */
     public function testShouldBeAbleToCalculateComedyAmount(int $audience, int $expectedAmount): void
     {
-        $play = new Play('My Comedy', 'comedy');
+        $play = new Play(self::TITLE, self::GENRE);
         $amount = $play->amount($audience);
         $this->assertEquals($expectedAmount, $amount->value());
     }
@@ -23,7 +26,7 @@ class ComedyPlayTest extends TestCase
      */
     public function testShouldBeAbleToCalculateComedyCredit(int $audience, string $expectedCredit): void
     {
-        $play = new Play('My Comedy', 'comedy');
+        $play = new Play(self::TITLE, self::GENRE);
         $credit = $play->credit($audience);
         $this->assertEquals($expectedCredit, $credit);
     }
