@@ -19,9 +19,9 @@ final class StatementPrinterTest extends TestCase
     public function testCanPrintInvoice(): void
     {
         $plays = [
-            'hamlet' => new Play('Hamlet', 'tragedy'),
-            'as-like' => new Play('As You Like It', 'comedy'),
-            'othello' => new Play('Othello', 'tragedy'),
+            'hamlet' => Play::create('Hamlet', 'tragedy'),
+            'as-like' => Play::create('As You Like It', 'comedy'),
+            'othello' => Play::create('Othello', 'tragedy'),
         ];
         $performances = [
             new Performance('hamlet', 55),
@@ -37,8 +37,8 @@ final class StatementPrinterTest extends TestCase
     public function testNewPlayTypes(): void
     {
         $plays = [
-            'henry-v' => new Play('Henry V', 'history'),
-            'as-like' => new Play('As You Like It', 'comedy'),
+            'henry-v' => Play::create('Henry V', 'history'),
+            'as-like' => Play::create('As You Like It', 'comedy'),
         ];
         $performances = [
             new Performance('henry-v', 53),
@@ -47,6 +47,6 @@ final class StatementPrinterTest extends TestCase
         $invoice = new Invoice(customer: 'BigCo', performances: new Performances($performances));
         $statementPrinter = new StatementPrinter();
         $this->expectException(Error::class);
-        $statementPrinter->print(invoice: $invoice, plays: new Plays($plays));
+        $statementPrinter->print(invoice: $invoice, plays: Play::creates($plays));
     }
 }

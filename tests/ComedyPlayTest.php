@@ -17,7 +17,7 @@ class ComedyPlayTest extends TestCase
      */
     public function testShouldBeAbleToCalculateComedyAmount(int $audience, int $expectedAmount): void
     {
-        $play = new Play(self::TITLE, self::GENRE);
+        $play = Play::create(self::TITLE, self::GENRE);
         $amount = $play->amount($audience);
         $this->assertEquals($expectedAmount, $amount->value());
     }
@@ -26,7 +26,7 @@ class ComedyPlayTest extends TestCase
      */
     public function testShouldBeAbleToCalculateComedyCredit(int $audience, string $expectedCredit): void
     {
-        $play = new Play(self::TITLE, self::GENRE);
+        $play = Play::create(self::TITLE, self::GENRE);
         $credit = $play->credit($audience);
         $this->assertEquals($expectedCredit, $credit);
     }

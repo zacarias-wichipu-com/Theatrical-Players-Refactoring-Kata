@@ -20,12 +20,12 @@ class PlaysTest extends TestCase
     {
         $plays = new Plays(
             plays: [
-                'henry-v' => new Play('Henry V', 'history'),
-                'as-like' => new Play('As You Like It', 'comedy'),
+                'henry-v' => Play::create('Henry V', 'history'),
+                'as-like' => Play::create('As You Like It', 'comedy'),
             ]
         );
         $this->assertEquals(
-            expected: new Play('As You Like It', 'comedy'),
+            expected: Play::create('As You Like It', 'comedy'),
             actual: $plays->getById('as-like')
         );
     }

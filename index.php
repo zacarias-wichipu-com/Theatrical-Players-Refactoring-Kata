@@ -10,9 +10,9 @@ use Theatrical\Play;
 require_once __DIR__ . '/vendor/autoload.php';
 
 $plays = [
-    'hamlet' => new Play('Hamlet', 'tragedy'),
-    'as-like' => new Play('As You Like It', 'comedy'),
-    'othello' => new Play('Othello', 'tragedy'),
+    'hamlet' => Play::create('Hamlet', 'tragedy'),
+    'as-like' => Play::create('As You Like It', 'comedy'),
+    'othello' => Play::create('Othello', 'tragedy'),
 ];
 $performances = [
     new Performance('hamlet', 55),

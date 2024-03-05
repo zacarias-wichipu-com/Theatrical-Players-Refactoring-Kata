@@ -9,10 +9,15 @@ use Stringable;
 
 final readonly class Play implements Stringable
 {
-    public function __construct(
+    private function __construct(
         private string $title,
         private string $genre
     ) {
+    }
+
+    public static function create(string $title, string $genre): self
+    {
+        return new self(title: $title, genre: $genre);
     }
 
     public function title(): string
