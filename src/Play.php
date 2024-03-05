@@ -7,9 +7,9 @@ namespace Theatrical;
 use Error;
 use Stringable;
 
-final readonly class Play implements Stringable
+readonly class Play implements Stringable
 {
-    private function __construct(
+    protected function __construct(
         private string $title,
         private string $genre
     ) {
