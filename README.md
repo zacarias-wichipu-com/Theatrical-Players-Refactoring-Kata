@@ -44,6 +44,7 @@ The following list shows the commits at which the application of each of the Obj
 - [Object Calisthenics: First Class Collections.](https://github.com/zacarias-wichipu-com/Theatrical-Players-Refactoring-Kata/commit/e29bfe26661d315e3495127e3576717bdf827f43)
 - [Object Calisthenics: One Dot Per Line.](https://github.com/zacarias-wichipu-com/Theatrical-Players-Refactoring-Kata/commit/03589d95966bba9e5e076d0f903ad6761c74cb68)
 - [Object Calisthenics: Do not Use Getters and Setters.](https://github.com/zacarias-wichipu-com/Theatrical-Players-Refactoring-Kata/commit/d76611a9050b29634ad2d78d3e8b8a039b6ec5fd)
+- [Object Calisthenics: Do Not Use Classes With More Than Two Instance Variables.](https://github.com/zacarias-wichipu-com/Theatrical-Players-Refactoring-Kata/commit/a8dc01223d5333e98873019ac05501fc2f12fda1)
 
 ## Installation
 
