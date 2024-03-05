@@ -7,7 +7,7 @@ namespace Theatrical;
 use Error;
 use Stringable;
 
-class Play implements Stringable
+final readonly class Play implements Stringable
 {
     public function __construct(
         public string $name,

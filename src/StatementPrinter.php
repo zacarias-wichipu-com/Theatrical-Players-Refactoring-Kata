@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Theatrical;
 
-readonly class StatementPrinter
+final readonly class StatementPrinter
 {
     public function print(Invoice $invoice, Plays $plays): string
     {
