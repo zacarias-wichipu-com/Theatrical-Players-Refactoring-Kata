@@ -10,14 +10,14 @@ use Stringable;
 final readonly class Play implements Stringable
 {
     public function __construct(
-        public string $name,
+        private string $title,
         private string $genre
     ) {
     }
 
-    public function __toString(): string
+    public function title(): string
     {
-        return (string) $this->name . ' : ' . $this->genre;
+        return $this->title;
     }
 
     public function credit(int $audience): Credit
@@ -37,6 +37,11 @@ final readonly class Play implements Stringable
             return $this->comedyAmount($audience);
         }
         throw new Error("Unknown genre: {$this->genre}");
+    }
+
+    public function __toString(): string
+    {
+        return (string) $this->title.' : '.$this->genre;
     }
 
     private function tragedyAmount(int $audience): Amount

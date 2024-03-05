@@ -27,11 +27,16 @@ final readonly class Performance
 
     public function fill(Fillable $fillable, Plays $plays): void
     {
-        $play = $plays->getById($this->playId);
         $fillable->fill('line', [
-            'name' => $play->name,
+            'name' => $this->playTitle($plays),
             'amount' => $this->amount($plays),
             'audience' => $this->audience,
         ]);
+    }
+
+    private function playTitle(Plays $plays): string
+    {
+        $play = $plays->getById($this->playId);
+        return $play->title();
     }
 }
