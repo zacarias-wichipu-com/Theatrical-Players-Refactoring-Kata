@@ -23,17 +23,17 @@ expect to find.
 
 Acknowledgements
 ----------------
-Thank you to Martin Fowler for kindly giving permission to use his code.
+Thank you to Martin Fowler and Emily Blanche for kindly giving permission to use his code.
 
-Thanks also to Fran Iglesias for the teachings and for sharing his knowledge and experience in
+Thanks also to [Fran Iglesias](https://franiglesias.github.io/) for the teachings and for sharing his knowledge and experience in
 the [Object Calisthenics refactoring exercises series](https://www.youtube.com/watch?v=Y666Sa9fcTU) of the Emily
-Blanche [Theatrical Players Refactoring Kata](https://github.com/emilybache/Theatrical-Players-Refactoring-Kata).
+Blanche [Theatrical Players Refactoring Kata](https://github.com/emilybache/Theatrical-Players-Refactoring-Kata) and the [Refactor a polimorfismo](https://www.youtube.com/watch?v=8r8PjcHPaKA) exercise.
 
 Object Calisthenics
 -------------------
 
 This exercise follows and applies the refactoring of the original _Theatrical Players Refactoring Kata_ code by applying
-the **Object Calisthenics** as Fran Iglesias proposes in his video
+the **Object Calisthenics** as [Fran Iglesias](https://franiglesias.github.io/) proposes in his video
 series [Object Calisthenics refactoring exercises series](https://www.youtube.com/watch?v=Y666Sa9fcTU)
 
 The following list shows the commits at which the application of each of the Object Calisthenics is started:
@@ -51,7 +51,7 @@ The following list shows the commits at which the application of each of the Obj
 Refactor to polymorphism
 ------------------------
 
-This exercise follows and applies the refactor to polymorphism of the _Object Calisthenics refactoring exercises series_ that Fran Iglesias proposes in his video [Refactor a polimorfismo](https://www.youtube.com/watch?v=8r8PjcHPaKA).
+This exercise follows and applies the refactor to polymorphism of the _Object Calisthenics refactoring exercises series_ that [Fran Iglesias](https://franiglesias.github.io/) proposes in his video [Refactor a polimorfismo](https://www.youtube.com/watch?v=8r8PjcHPaKA).
 
 The initial commit of this refactor:
 
