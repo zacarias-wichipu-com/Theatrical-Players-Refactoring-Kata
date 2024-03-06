@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 namespace Theatrical;
 
-use Error;
-use Stringable;
-
-readonly class Play implements Stringable
+readonly class Play
 {
     protected function __construct(
         private string $title,
@@ -27,9 +24,5 @@ readonly class Play implements Stringable
     public function title(): string
     {
         return $this->title;
-    }
-    public function __toString(): string
-    {
-        return (string) $this->title.' : '.$this->genre;
     }
 }
