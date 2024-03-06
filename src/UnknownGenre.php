@@ -6,7 +6,7 @@ namespace Theatrical;
 
 use Error;
 
-final readonly class UnknownPlay extends Play
+final readonly class UnknownGenre extends Play
 {
 
     protected function __construct(

@@ -8,7 +8,7 @@ use NumberFormatter;
 
 final readonly class Amount
 {
-    public const CURRENCY_USD = 'USD';
+    private const CURRENCY_USD = 'USD';
     private NumberFormatter $numberFormatter;
 
     public function __construct(

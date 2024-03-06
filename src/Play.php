@@ -17,7 +17,7 @@ readonly abstract class Play
         return match ($genre) {
             'comedy' => new Comedy(title: $title),
             'tragedy' => new Tragedy(title: $title),
-            default => new UnknownPlay($title, $genre)
+            default => new UnknownGenre($title, $genre)
         };
     }
 
