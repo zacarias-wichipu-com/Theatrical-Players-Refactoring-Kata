@@ -6,8 +6,9 @@ namespace Theatrical;
 
 final readonly class Plays
 {
-    public function __construct(private array $plays)
-    {
+    public function __construct(
+        private array $plays
+    ) {
     }
 
     public function getById(string $id): Play

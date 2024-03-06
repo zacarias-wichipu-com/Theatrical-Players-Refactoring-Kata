@@ -11,12 +11,11 @@ use Theatrical\Plays;
 class PlaysTest extends TestCase
 {
     /**
-     * @test
      * Be Able To Return An Item By Its Id
      * be_able_to_return_an_item_by_its_id
      * @group plays
      */
-    public function itShouldBeAbleToReturnAnItemByItsId(): void
+    public function testItShouldBeAbleToReturnAnItemByItsId(): void
     {
         $plays = new Plays(
             plays: [

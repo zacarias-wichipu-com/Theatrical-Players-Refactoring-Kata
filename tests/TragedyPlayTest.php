@@ -8,8 +8,9 @@ use Theatrical\Play;
 
 class TragedyPlayTest extends TestCase
 {
-    const string GENRE = 'tragedy';
-    const string TITLE = 'My Tragedy';
+    public const string GENRE = 'tragedy';
+
+    public const string TITLE = 'My Tragedy';
 
     /**
      * @dataProvider tragedyAmountTestData
@@ -20,6 +21,7 @@ class TragedyPlayTest extends TestCase
         $amount = $play->amount($audience);
         $this->assertEquals($expectedAmount, $amount->value());
     }
+
     /**
      * @dataProvider tragedyCreditTestData
      */

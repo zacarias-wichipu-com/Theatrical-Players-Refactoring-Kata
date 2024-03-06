@@ -22,7 +22,8 @@ final readonly class Invoice
         $fillable->fill(field: 'credit', value: $this->credit($plays));
     }
 
-    private function amount(Plays $plays): Amount {
+    private function amount(Plays $plays): Amount
+    {
         $invoiceAmount = new Amount(amount: 0);
         foreach ($this->performances as $performance) {
             $invoiceAmount = $invoiceAmount->add(amountToAdd: $performance->amount(plays: $plays));

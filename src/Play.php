@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Theatrical;
 
-readonly abstract class Play
+abstract readonly class Play
 {
     protected function __construct(
         private string $title,
@@ -22,7 +22,9 @@ readonly abstract class Play
     }
 
     abstract public function amount(int $audience): Amount;
+
     abstract public function credit(int $audience): Credit;
+
     public function title(): string
     {
         return $this->title;

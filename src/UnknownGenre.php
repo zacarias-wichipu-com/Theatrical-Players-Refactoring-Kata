@@ -8,7 +8,6 @@ use Error;
 
 final readonly class UnknownGenre extends Play
 {
-
     protected function __construct(
         string $title,
         string $genre
@@ -16,12 +15,14 @@ final readonly class UnknownGenre extends Play
         parent::__construct(title: $title, genre: $genre);
     }
 
-    #[\Override] public function amount(int $audience): Amount
+    #[\Override]
+    public function amount(int $audience): Amount
     {
         throw new Error(sprintf('Unknown <%1$s> genre', $this->genre));
     }
 
-    #[\Override] public function credit(int $audience): Credit
+    #[\Override]
+    public function credit(int $audience): Credit
     {
         throw new Error(sprintf('Unknown <%1$s> genre', $this->genre));
     }

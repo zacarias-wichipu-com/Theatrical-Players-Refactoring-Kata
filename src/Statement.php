@@ -35,10 +35,11 @@ final class Statement implements Fillable
     {
         return array_reduce(
             array: $this->values['lines'],
-            callback: static fn(
+            callback: static fn (
                 string $carry,
                 array $line
             ): string => $carry .= "  {$line['name']}: {$line['amount']} ({$line['audience']} seats)\n",
-            initial: '');
+            initial: ''
+        );
     }
 }

@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace Theatrical;
 
-readonly final class Tragedy extends Play
+final readonly class Tragedy extends Play
 {
-    protected function __construct(private string $title)
-    {
+    protected function __construct(
+        private string $title
+    ) {
         parent::__construct(title: $this->title, genre: 'tragedy');
     }
 
-    #[\Override] public function amount(int $audience): Amount
+    #[\Override]
+    public function amount(int $audience): Amount
     {
         $feeAmount = $this->tragedyFeeAmount();
         return $feeAmount->add(
@@ -19,7 +21,8 @@ readonly final class Tragedy extends Play
         );
     }
 
-    #[\Override] public function credit(int $audience): Credit
+    #[\Override]
+    public function credit(int $audience): Credit
     {
         return new Credit(credit: 0);
     }
