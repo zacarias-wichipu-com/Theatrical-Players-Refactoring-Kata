@@ -20,6 +20,7 @@ readonly class Play implements Stringable
         return match ($genre) {
             'comedy' => new Comedy(title: $title),
             'tragedy' => new Tragedy(title: $title),
+            default => new self(title: $title, genre: $genre)
         };
     }
 
