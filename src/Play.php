@@ -17,6 +17,9 @@ readonly class Play implements Stringable
 
     public static function create(string $title, string $genre): self
     {
+        if ($genre === 'comedy') {
+            return new Comedy($title);
+        }
         return new self(title: $title, genre: $genre);
     }
 
@@ -37,9 +40,6 @@ readonly class Play implements Stringable
     {
         if ($this->genre === 'tragedy') {
             return $this->tragedyAmount($audience);
-        }
-        if ($this->genre === 'comedy') {
-            return $this->comedyAmount($audience);
         }
         throw new Error("Unknown genre: {$this->genre}");
     }
@@ -70,25 +70,4 @@ readonly class Play implements Stringable
         return new Amount(0);
     }
 
-    private function comedyAmount(int $audience): Amount
-    {
-        $feeAmount = $this->comedyFeeAmount($audience);
-        return $feeAmount->add(
-            amountToAdd: $this->comedyExtraAmountByAudience($audience)
-        );
-    }
-
-    private function comedyFeeAmount(int $audience): Amount
-    {
-        $amount = new Amount(amount: 30000);
-        return $amount->add(new Amount(amount: 300 * $audience));
-    }
-
-    private function comedyExtraAmountByAudience(int $audience): Amount
-    {
-        if ($audience > 20) {
-            return new Amount(amount: 10000 + 500 * ($audience - 20));
-        }
-        return new Amount(0);
-    }
 }
