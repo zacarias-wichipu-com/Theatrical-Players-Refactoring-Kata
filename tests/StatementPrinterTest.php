@@ -47,6 +47,6 @@ final class StatementPrinterTest extends TestCase
         $invoice = new Invoice(customer: 'BigCo', performances: new Performances($performances));
         $statementPrinter = new StatementPrinter();
         $this->expectException(Error::class);
-        $statementPrinter->print(invoice: $invoice, plays: Play::creates($plays));
+        $statementPrinter->print(invoice: $invoice, plays: new Plays($plays));
     }
 }
