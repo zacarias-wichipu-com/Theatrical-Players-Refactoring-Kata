@@ -48,6 +48,15 @@ The following list shows the commits at which the application of each of the Obj
 - [Object Calisthenics: Do Not Use Classes With More Than Two Instance Variables.](https://github.com/zacarias-wichipu-com/Theatrical-Players-Refactoring-Kata/commit/a8dc01223d5333e98873019ac05501fc2f12fda1)
 - Object Calisthenics: Don’t Abbreviate.
 
+Refactor to polymorphism
+------------------------
+
+This exercise follows and applies the refactor to polymorphism of the _Object Calisthenics refactoring exercises series_ that Fran Iglesias proposes in his video [Refactor a polimorfismo](https://www.youtube.com/watch?v=8r8PjcHPaKA).
+
+The initial commit of this refactor:
+
+- [Refactor to polymorphism.](https://github.com/zacarias-wichipu-com/Theatrical-Players-Refactoring-Kata/commit/5fce337ee5b179441b98ed09aa0dfd6bc3a074ed)
+
 ## Installation
 
 The kata uses:
