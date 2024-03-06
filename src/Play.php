@@ -17,10 +17,10 @@ readonly class Play implements Stringable
 
     public static function create(string $title, string $genre): self
     {
-        if ($genre === 'comedy') {
-            return new Comedy($title);
-        }
-        return new self(title: $title, genre: $genre);
+        return match ($genre) {
+            'comedy' => new Comedy(title: $title),
+            'tragedy' => new Tragedy(title: $title),
+        };
     }
 
     public function title(): string
