@@ -49,7 +49,7 @@ readonly class Play implements Stringable
         return (string) $this->title.' : '.$this->genre;
     }
 
-    private function tragedyAmount(int $audience): Amount
+    protected function tragedyAmount(int $audience): Amount
     {
         $feeAmount = $this->tragedyFeeAmount();
         return $feeAmount->add(
@@ -57,12 +57,12 @@ readonly class Play implements Stringable
         );
     }
 
-    private function tragedyFeeAmount(): Amount
+    protected function tragedyFeeAmount(): Amount
     {
         return new Amount(amount: 40000);
     }
 
-    private function tragedyExtraAmountByAudience(int $audience): Amount
+    protected function tragedyExtraAmountByAudience(int $audience): Amount
     {
         if ($audience > 30) {
             return new Amount(amount: 1000 * ($audience - 30));
