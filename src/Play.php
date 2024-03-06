@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Theatrical;
 
-readonly class Play
+readonly abstract class Play
 {
     protected function __construct(
         private string $title,
-        private string $genre
+        protected string $genre
     ) {
     }
 
@@ -17,10 +17,12 @@ readonly class Play
         return match ($genre) {
             'comedy' => new Comedy(title: $title),
             'tragedy' => new Tragedy(title: $title),
-            default => new self(title: $title, genre: $genre)
+            default => new UnknownPlay($title, $genre)
         };
     }
 
+    abstract public function amount(int $audience): Amount;
+    abstract public function credit(int $audience): Credit;
     public function title(): string
     {
         return $this->title;

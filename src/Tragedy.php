@@ -11,7 +11,7 @@ readonly final class Tragedy extends Play
         parent::__construct(title: $this->title, genre: 'tragedy');
     }
 
-    public function amount(int $audience): Amount
+    #[\Override] public function amount(int $audience): Amount
     {
         $feeAmount = $this->tragedyFeeAmount();
         return $feeAmount->add(
@@ -19,7 +19,7 @@ readonly final class Tragedy extends Play
         );
     }
 
-    public function credit(int $audience): Credit
+    #[\Override] public function credit(int $audience): Credit
     {
         return new Credit(credit: 0);
     }
