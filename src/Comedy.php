@@ -19,6 +19,11 @@ final readonly class Comedy extends Play
         );
     }
 
+    public function credit(int $audience): Credit
+    {
+        return new Credit(credit: (int) floor($audience / 5));
+    }
+
     private function feeAmount(int $audience): Amount
     {
         $amount = new Amount(amount: 30000);
