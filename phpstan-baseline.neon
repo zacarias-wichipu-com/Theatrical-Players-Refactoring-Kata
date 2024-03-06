@@ -1,0 +1,62 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Class Theatrical\\\\Performances implements generic interface IteratorAggregate but does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: src/Performances.php
+		-
+			message: "#^Cannot access an offset on mixed\\.$#"
+			count: 1
+			path: src/Statement.php
+		-
+			message: "#^Cannot access offset 'amount' on mixed\\.$#"
+			count: 1
+			path: src/Statement.php
+		-
+			message: "#^Cannot access offset 'audience' on mixed\\.$#"
+			count: 1
+			path: src/Statement.php
+		-
+			message: "#^Cannot access offset 'name' on mixed\\.$#"
+			count: 1
+			path: src/Statement.php
+		-
+			message: "#^Cannot call method USDFormatCurrency\\(\\) on mixed\\.$#"
+			count: 2
+			path: src/Statement.php
+		-
+			message: "#^Match expression does not handle remaining value\\: string$#"
+			count: 1
+			path: src/Statement.php
+		-
+			message: "#^Parameter \\$array of function array_reduce expects array\\<array\\>, mixed given\\.$#"
+			count: 1
+			path: src/Statement.php
+		-
+			message: "#^Part \\$this\\-\\>values\\['amount'\\] \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
+			count: 1
+			path: src/Statement.php
+		-
+			message: "#^Part \\$this\\-\\>values\\['credit'\\] \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
+			count: 1
+			path: src/Statement.php
+		-
+			message: "#^Part \\$this\\-\\>values\\['customer'\\] \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
+			count: 1
+			path: src/Statement.php
+		-
+			message: "#^Method Tests\\\\ComedyPlayTest\\:\\:comedyAmountTestData\\(\\) is unused\\.$#"
+			count: 1
+			path: tests/ComedyPlayTest.php
+		-
+			message: "#^Method Tests\\\\ComedyPlayTest\\:\\:comedyCreditTestData\\(\\) is unused\\.$#"
+			count: 1
+			path: tests/ComedyPlayTest.php
+		-
+			message: "#^Method Tests\\\\TragedyPlayTest\\:\\:tragedyAmountTestData\\(\\) is unused\\.$#"
+			count: 1
+			path: tests/TragedyPlayTest.php
+		-
+			message: "#^Method Tests\\\\TragedyPlayTest\\:\\:tragedyCreditTestData\\(\\) is unused\\.$#"
+			count: 1
+			path: tests/TragedyPlayTest.php
