@@ -6,6 +6,9 @@ namespace Theatrical;
 
 final readonly class Plays
 {
+    /**
+     * @param  array<string, Play> $plays
+     */
     public function __construct(
         private array $plays
     ) {

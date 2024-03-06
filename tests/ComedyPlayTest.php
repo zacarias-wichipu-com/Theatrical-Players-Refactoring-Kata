@@ -33,6 +33,9 @@ class ComedyPlayTest extends TestCase
         $this->assertEquals($expectedCredit, $credit);
     }
 
+    /**
+     * @return array<int, array<int, int>>
+     */
     private function comedyAmountTestData(): array
     {
         return [
@@ -43,6 +46,9 @@ class ComedyPlayTest extends TestCase
         ];
     }
 
+    /**
+     * @return array<int, array<int, mixed>>
+     */
     private function comedyCreditTestData(): array
     {
         return [

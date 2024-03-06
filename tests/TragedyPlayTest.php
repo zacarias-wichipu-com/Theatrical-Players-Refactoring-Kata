@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+namespace Tests;
 
 use PHPUnit\Framework\TestCase;
 use Theatrical\Play;
@@ -32,6 +33,9 @@ class TragedyPlayTest extends TestCase
         $this->assertEquals($expectedCredit, $credit);
     }
 
+    /**
+     * @return array<int, array<int, int>>
+     */
     private function tragedyAmountTestData(): array
     {
         return [
@@ -42,6 +46,9 @@ class TragedyPlayTest extends TestCase
         ];
     }
 
+    /**
+     * @return array<int, array<int, mixed>>
+     */
     private function tragedyCreditTestData(): array
     {
         return [
